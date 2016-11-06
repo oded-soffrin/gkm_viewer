@@ -4,7 +4,7 @@ import {bindActionCreators} from 'redux';
 import * as actions from '../actions/etsyActions';
 import EtsyHomePage from '../components/Etsy/EtsyHomePage';
 
-export const EtsyPage = (props) => {
+export const EtsyPageInner = (props) => {
   return (
       <EtsyHomePage
           onSelectCategory={props.actions.categorySelect}
@@ -13,7 +13,7 @@ export const EtsyPage = (props) => {
   );
 };
 
-EtsyPage.propTypes = {
+EtsyPageInner.propTypes = {
   actions: PropTypes.object.isRequired,
   etsy: PropTypes.object.isRequired
 };
@@ -33,5 +33,5 @@ function mapDispatchToProps(dispatch) {
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(EtsyPage);
+)(EtsyPageInner);
 
