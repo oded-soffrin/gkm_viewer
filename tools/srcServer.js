@@ -15,8 +15,7 @@ const bundler = webpack(config);
 
 // Run Browsersync and use middleware for Hot Module Replacement
 browserSync({
-  port: 80,      //added to test on remote
-  //port: 3000,   //removed to test on remote
+  port: 3000,   //removed to test on remote
   ui: {
     port: 3001
   },
