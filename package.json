@@ -28,6 +28,11 @@
   },
   "author": "oded-soffrin",
   "license": "MIT",
+  "eslintConfig": {
+    "rules": {
+      "import/no-named-as-default": 0
+    }
+  },
   "dependencies": {
     "jquery": "3.1.0",
     "object-assign": "4.1.0",
