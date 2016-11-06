@@ -1,7 +1,7 @@
 import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import * as actions from '../actions/etsyActions';
+import * as actions from '../actions/etsyActions.js';
 import EtsyHomePage from '../components/Etsy/EtsyHomePage';
 
 export const EtsyPage = (props) => {
