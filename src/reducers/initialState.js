@@ -14,5 +14,12 @@ export default {
       annual: 0,
       threeYear: 0
     }
+  },
+  
+  etsy: {
+    category: ['ALL']
+  },
+  ig: {
+    nonfollowers: []
   }
 };

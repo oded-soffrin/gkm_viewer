@@ -6,16 +6,14 @@ const HomePage = () => {
     <div>
       <h1>React Slingshot</h1>
 
-      <h2>Get Started</h2>
+      <h2>HomePage Menu</h2>
       <ol>
+        <li><Link to="gkm">GKM</Link></li>
+        <li><Link to="etsy">Etsy</Link></li>
+        <li><Link to="ig">IG</Link></li>
         <li>Review the <Link to="fuel-savings">demo app</Link></li>
-        <li>Remove the demo and start coding: npm run remove-demo</li>
       </ol>
 
-      <h2>GKM</h2>
-      <ol>
-        <li>S</li>
-      </ol>
     </div>
   );
 };

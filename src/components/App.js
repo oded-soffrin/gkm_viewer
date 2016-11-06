@@ -6,7 +6,11 @@ const App = (props) => {
     <div>
       <IndexLink to="/">Home</IndexLink>
       {' | '}
-      <Link to="/fuel-savings">Demo App</Link>
+      <Link to="/etsy">ETSY</Link>
+      {' | '}
+      <Link to="/gkm">GKM</Link>
+      {' | '}
+      <Link to="/ig">IG</Link>
       {' | '}
       <Link to="/about">About</Link>
       <br/>

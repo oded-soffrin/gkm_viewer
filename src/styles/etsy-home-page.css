@@ -1,0 +1,62 @@
+
+.listing {
+  border: 1px solid #eee;
+  width: 30%;
+  padding: 10px;
+
+  img {
+    width: 100%;
+  }
+
+  &.gallery {
+    display: inline-block;
+   }
+  .title {
+    display: inline-block;
+    padding: 10px;
+  }
+}
+
+.category {
+  .title {
+    padding: 5px;
+    cursor: pointer;
+  }
+
+
+  &:hover {
+    .title {
+      background: black;
+      color: white;
+    }
+  }
+
+  &.active {
+    .title {
+      background: white;
+      cursor: default;
+      color: green;
+    }
+
+  }
+
+  .category2 {
+    .title {
+      cursor: pointer;
+      font-size: 14px;
+      padding-left: 20px;
+      color: black;
+    }
+
+
+
+    &:hover {
+      .title {
+        background: grey;
+        color: white;
+      }
+
+    }
+
+  }
+}

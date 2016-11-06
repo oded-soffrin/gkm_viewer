@@ -20,7 +20,7 @@ FuelSavingsPage.propTypes = {
 };
 
 function mapStateToProps(state) {
-  return {
+  return {     
     fuelSavings: state.fuelSavings
   };
 }
@@ -35,3 +35,4 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(FuelSavingsPage);
+
