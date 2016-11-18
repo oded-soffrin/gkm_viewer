@@ -11,6 +11,11 @@ class EtsyListing extends React.Component {
 
   render() {
     let e = this.props.data;
+    if (!e['images']) {
+      console.log('no images', e);
+      return (<div />);
+    }
+
     let className = ["listing", this.props.type].join(' ');
     return (<div className={className}>
 
