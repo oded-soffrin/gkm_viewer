@@ -30,3 +30,9 @@ h2 {
 .loss { color: $vin-red; }
 input.small { width: 46px; }
 td.fuel-savings-label { width: 175px; }
+
+@media only screen and (max-device-width: 480px) {
+  body {
+    padding: 10px 10px;
+  }
+}

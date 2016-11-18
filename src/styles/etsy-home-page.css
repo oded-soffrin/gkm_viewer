@@ -48,8 +48,6 @@
       color: black;
     }
 
-
-
     &:hover {
       .title {
         background: grey;
@@ -58,5 +56,13 @@
 
     }
 
+  }
+}
+
+@media only screen and (max-device-width: 480px) {
+  .listing {
+    width: 100%;
+    padding: 0;
+    border: 0;
   }
 }
