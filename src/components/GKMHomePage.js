@@ -1,7 +1,7 @@
 import React, {PropTypes} from 'react';
 import $ from 'jquery';
 import '../styles/gkm-home-page.css';
-
+import {API_URL} from '../constants/consts';
 
 class Tweet extends React.Component {
   constructor(props, context) {
@@ -38,7 +38,7 @@ class GKMHomePage extends React.Component {
   }
 
   componentDidMount() {
-    $.get('https://localhost:4567/valid_tweets', (valid_tweets) => {
+    $.get(API_URL + '/valid_tweets', (valid_tweets) => {
       this.setState({
         latest_tweets: valid_tweets
       });

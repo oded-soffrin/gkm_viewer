@@ -5,6 +5,7 @@ import '../../styles/etsy-home-page.css';
 import EtsyListing from './EtsyListing';
 import PrettyJson from '../PrettyJson';
 import EtsyCategories from './EtsyCategories';
+import {API_URL} from '../../constants/consts';
 
 class EtsyHomePage extends React.Component {
   constructor(props, context) {
@@ -20,7 +21,7 @@ class EtsyHomePage extends React.Component {
   }
 
   componentDidMount() {
-    $.get('https://localhost:4567/etsy_listings', (etsy_listings) => {
+    $.get(API_URL + '/etsy_listings', (etsy_listings) => {
       this.setState(_.merge({}, this.state,{
         etsy_listings: etsy_listings
       }));
@@ -48,7 +49,7 @@ class EtsyHomePage extends React.Component {
 
 
       if (c[0] == 'ALL') {
-        listings.push(<EtsyListing type={this.state.config.type} data={l} />);
+        listings.push(<EtsyListing key={l.url} type={this.state.config.type} data={l} />);
       }
 
       else {
@@ -60,7 +61,7 @@ class EtsyHomePage extends React.Component {
         });
 
         if (isInCategory) {
-          listings.push(<EtsyListing type={this.state.config.type} data={l}/>);
+          listings.push(<EtsyListing key={l.url} type={this.state.config.type} data={l}/>);
         }
       }
     }

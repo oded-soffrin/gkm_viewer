@@ -17,7 +17,7 @@ export default {
   },
   
   etsy: {
-    category: ['ALL']
+    category: ['ALL'],
   },
   ig: {
     nonfollowers: []

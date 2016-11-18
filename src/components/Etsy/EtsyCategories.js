@@ -37,7 +37,6 @@ class EtsyCategory extends React.Component {
 }
 
 EtsyCategory.propTypes = {
-  data: PropTypes.object.isRequired,
   nextCategories: PropTypes.object,
   active: PropTypes.bool.isRequired,
   onSelectCategory: PropTypes.func.isRequired,
@@ -54,9 +53,9 @@ class EtsyCategories extends React.Component {
   render() {
     let cats = this.props.data;
     let catElements = [];
-    catElements.push(<EtsyCategory category={'ALL'} active={this.props.current[0] == 'ALL'} onSelectCategory={this.props.onSelectCategory} />);
+    catElements.push(<EtsyCategory key="ALL" category={'ALL'} active={this.props.current[0] == 'ALL'} onSelectCategory={this.props.onSelectCategory} />);
     _.each(cats, (nextCategories,cat) => {
-      catElements.push(<EtsyCategory category={cat} nextCategories={nextCategories} active={this.props.current[0] == cat} onSelectCategory={this.props.onSelectCategory} />);
+      catElements.push(<EtsyCategory key={cat} category={cat} nextCategories={nextCategories} active={this.props.current[0] == cat} onSelectCategory={this.props.onSelectCategory} />);
     });
 
     return (<div>
@@ -69,7 +68,7 @@ class EtsyCategories extends React.Component {
 EtsyCategories.propTypes = {
   data: PropTypes.object.isRequired,
   onSelectCategory: PropTypes.func.isRequired,
-  current: PropTypes.string.isRequired
+  current: PropTypes.array.isRequired
 };
 
 export default EtsyCategories;
