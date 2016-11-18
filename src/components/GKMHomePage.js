@@ -2,33 +2,7 @@ import React, {PropTypes} from 'react';
 import $ from 'jquery';
 import '../styles/gkm-home-page.css';
 import {API_URL} from '../constants/consts';
-
-class Tweet extends React.Component {
-  constructor(props, context) {
-    super(props, context);
-  }
-
-  render() {
-    let t = this.props.data.tweet;
-
-    /*
-     <pre>{JSON.stringify(t, null, 2) }</pre>
-
-     */
-    return (<div className="tweet">
-
-      <a href={"https://twitter.com/anakiarra_/status/"+ t.id_str} target="_blank">
-        <img height="100" src={t.user.profile_image_url.replace('_normal', '')}/>
-        <div className="userName">{t.user.name} / {t.user.screen_name} </div></a>
-      <div>{t.text}</div>
-    </div>);
-  }
-
-}
-
-Tweet.propTypes = {
-  data: PropTypes.object.isRequired
-};
+import Tweet from './Twitter/tweet';
 
 class GKMHomePage extends React.Component {
   constructor(props, context) {
@@ -56,9 +30,11 @@ class GKMHomePage extends React.Component {
     return (
         <div>
           <h2 className="alt-header">GKM</h2>
-          <ul>
-            <li>Use API - see latestTweets fetch result</li>
-          </ul>
+          <div>Next posts</div>
+            <ul>
+              TODO:
+              <li>create API '/next_twitter_posts'</li>
+            </ul>
           <div>
             <h3>Valid tweets</h3>
             {tweets}
