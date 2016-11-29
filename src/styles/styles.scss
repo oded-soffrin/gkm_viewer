@@ -31,8 +31,22 @@ h2 {
 input.small { width: 46px; }
 td.fuel-savings-label { width: 175px; }
 
+
+.home-page {
+  .button {
+    text-align: center;
+    padding: 10px;
+    margin: 10px;
+    border: 1px solid black;
+    box-sizing: border-box;
+    background: lightgoldenrodyellow;
+    display: inline-block;
+    width: calc(50% - 20px);
+  }
+}
 @media only screen and (max-device-width: 480px) {
   body {
     padding: 0px 10px;
   }
 }
+

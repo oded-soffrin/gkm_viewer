@@ -32,7 +32,7 @@ class EtsyListing extends React.Component {
       update = (<div>
         <h6>update twiiter message:</h6>
         <input type="text" maxLength="90"/>
-        <button onClick={() => {alert('I should update the DB but i\'m too tired')}}> update </button>
+        <button onClick={() => {alert('I should update the DB but i\'m too tired');}}> update </button>
       </div>);
     }
     return (<div className={classNameStr}>
