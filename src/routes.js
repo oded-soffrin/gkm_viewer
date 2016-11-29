@@ -11,10 +11,13 @@ import FuelSavingsPage from './containers/FuelSavingsPage'; // eslint-disable-li
 import AboutPage from './components/AboutPage.js';
 import NotFoundPage from './components/NotFoundPage.js';
 import EtsyPage from "./containers/EtsyPage";
+import ShopPage from "./components/ShopPage.js";
 
 export default (
     <Route path="/" component={App}>
         <IndexRoute component={HomePage}/>
+        <Route path="about" component={AboutPage}/>
+        <Route path="shop" component={ShopPage}/>
         <Route path="/admin" component={Admin}>
                 <IndexRoute component={AdminHomePage}/>
                 <Route path="gkm" component={GKMHomePage}/>

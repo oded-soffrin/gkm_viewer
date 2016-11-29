@@ -1,5 +1,5 @@
 import React from 'react';
-
+import {Link} from 'react-router';
 const HomePage = () => {
   return (
     <div className="home-page">
@@ -8,8 +8,8 @@ const HomePage = () => {
 
 
 
-      <div className="button">Who are we?</div>
-      <div className="button">Let's shop!?</div>
+      <Link className="button" to="/about">Who are we?</Link>
+      <Link className="button" to="/shop">Let's shop!?</Link>
 
       <h2>Eliran! you too all the papers I can't remember the design...</h2>
     </div>
