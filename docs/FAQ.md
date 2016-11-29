@@ -3,7 +3,7 @@
 This starter kit implements best practices like testing, minification, bundling, and so on. It codifies a long list of decisions that you no longer have to make to get rolling. It saves you from the long, painful process of wiring it all together into an automated dev environment and build process. It's also useful as inspiration for ideas you might want to integrate into your current development environment or build process.
 
 ###What do the scripts in package.json do?
-Unfortunately, scripts in package.json can't be commented inline because the JSON spec doesn't support comments, so I'm providing info on what each script in package.json does here.  
+Unfortunately, scripts in package.json can't be commented inline because the JSON spec doesn't support comments, so I'm providing info on what each script in package.json does here.
 
 | **Script** | **Description** |
 |----------|-------|
@@ -19,6 +19,7 @@ Unfortunately, scripts in package.json can't be commented inline because the JSO
 | test | Runs tests (files ending in .spec.js) using Mocha and outputs results to the command line. Watches all files so tests are re-run upon save. |
 | test:cover | Runs tests as described above. Generates a HTML coverage report to ./coverage/index.html |
 | test:cover:travis | Runs coverage as described above, however sends machine readable lcov data to Coveralls. This should only be used from the travis build! |
+| analyze-bundle | Analyzes webpack bundles for production and gives you a breakdown of where modules are used and their sizes via a convenient interactive zoomable treemap. |
 
 ### Can you explain the folder structure?
 ```
@@ -33,23 +34,33 @@ Unfortunately, scripts in package.json can't be commented inline because the JSO
 ├── dist                      # Folder where the build script places the built app. Use this in prod.
 ├── package.json              # Package configuration. The list of 3rd party libraries and utilities
 ├── src                       # Source code
-│   ├── actions               # Flux/Redux actions. List of distinct actions that can occur in the app.  
+│   ├── actions               # Flux/Redux actions. List of distinct actions that can occur in the app.
 │   ├── components            # React components
 │   ├── constants             # Application constants including constants for Redux
 │   ├── containers            # Top-level React components that interact with Redux
 │   ├── favicon.ico           # favicon to keep your browser from throwing a 404 during dev. Not actually used in prod build.
-│   ├── index.html            # Start page
+│   ├── index.ejs             # Template for homepage
 │   ├── index.js              # Entry point for your app
 │   ├── reducers              # Redux reducers. Your state is altered here based on actions
 │   ├── store                 # Redux store configuration
-│   └── styles                # CSS Styles, typically written in Sass
-│   ├── utils                 # Plain old JS objects (POJOs). Pure logic. No framework specific code here.
+│   ├── styles                # CSS Styles, typically written in Sass
+│   └── utils                 # Plain old JS objects (POJOs). Pure logic. No framework specific code here.
 ├── tools                     # Node scripts that run build related tools
+│   ├── setup                 # Scripts for setting up a new project using React Slingshot
+│   │   ├── setup.js          # Configure project set up
+│   │   ├── setupMessage.js   # Display message when beginning set up
+│   │   └── setupPrompts.js   # Configure prompts for set up
 │   ├── build.js              # Runs the production build
-│   ├── buildHtml.js          # Builds index.html
+│   ├── chalkConfig.js        # Centralized configuration for chalk (adds color to console statements)
 │   ├── distServer.js         # Starts webserver and opens final built app that's in dist in your default browser
+│   ├── nodeVersionCheck.js   # Confirm supported Node version is installed
+│   ├── removeDemo.js         # Remove demo app
 │   ├── srcServer.js          # Starts dev webserver with hot reloading and opens your app in your default browser
-└── webpack.config.js         # Configures webpack
+│   ├── startMessage.js       # Display message when development build starts
+│   ├── testSetup.js          # Configures mocha
+│   └── analyzeBundle.js      # Analyzes the webpack bundle
+├── webpack.config.dev.js     # Configures webpack for development builds
+└── webpack.config.prod.js    # Configures webpack for production builds
 ```
 
 ### What are the dependencies in package.json used for?
@@ -63,12 +74,13 @@ Unfortunately, scripts in package.json can't be commented inline because the JSO
 |react-redux|Redux library for connecting React components to Redux |
 |react-router|React library for routing |
 |redux|Library for unidirectional data flows |
+|redux-thunk|Middleware for redux that allows actions to be declared as functions |
 |babel-cli|Babel Command line interface |
 |babel-core|Babel Core for transpiling the new JavaScript to old |
 |babel-loader|Adds Babel support to Webpack |
 |babel-plugin-react-display-name| Add displayName to React.createClass calls |
 |babel-plugin-transform-react-constant-elements | Performance optimization: Hoists the creation of elements that are fully static to the top level. reduces calls to React.createElement and the resulting memory allocations. [More info](https://medium.com/doctolib-engineering/improve-react-performance-with-babel-16f1becfaa25#.2wbkg8g4d) |
-|babel-preset-es2015|Babel preset for ES2015|
+|babel-preset-latest|Babel preset for ES2015, ES2016 and ES2017|
 |babel-preset-react-hmre|Hot reloading preset for Babel|
 |babel-preset-react| Add JSX support to Babel |
 |babel-preset-stage-1| Include stage 1 feature support in Babel |
@@ -96,6 +108,7 @@ Unfortunately, scripts in package.json can't be commented inline because the JSO
 |sinon-chai| Extends Chai with assertions for the Sinon.JS mocking framework|
 |style-loader| Add Style support to Webpack |
 |webpack| Bundler with plugin system and integrated development server |
+|webpack-bundle-analyzer| Webpack plugin and CLI utility that represents bundle content as convenient interactive zoomable treemap |
 |webpack-dev-middleware| Used to integrate Webpack with Browser-sync |
 |webpack-hot-middleware| Use to integrate Webpack's hot reloading support with Browser-sync |
 |webpack-md5-hash| Hash bundles, and use the hash for the filename so that the filename only changes when contents change|
@@ -132,7 +145,7 @@ No problem. Reference your CSS file in index.html, and add a step to the build p
 ### I just want an empty starter kit.
 This starter kit includes an example app so you can see how everything hangs together on a real app. When you're done reviewing it, run this to remove the demo app:
 
-  `npm run remove-demo`  
+  `npm run remove-demo`
 
 Don't want to use Redux? See the next question for some steps on removing Redux.
 
@@ -145,7 +158,7 @@ Nope. Redux is useful for applications with more complex data flows. If your app
  4. Call render on the new top level component you created in step 3 in src/index.js.
 
 ### How do I remove React Router?
- 1. Uninstall React Router and routing related packages: `npm uninstall --save react-router connect-history-api-fallback`
+ 1. Uninstall React Router and routing related packages: `npm uninstall --save react-router`
  2. Delete the following files: `src/routes.js`
  3. Remove `import { Link, IndexLink } from 'react-router';` from top of `src/components/App.js`, add a reference to `src/components/FuelSavingsForm.js`, and replace body of (implicit) render with this: `<FuelSavingsPage />`.
 
@@ -173,9 +186,15 @@ Also note that no actual physical files are written to the filesystem during the
 
 **Tips for debugging via sourcemaps:**
 
- 1. Browsers vary in the way they allow you to view the original source. Chrome automatically shows the original source if a sourcemap is available. Safari, in contrast, will display the minified source and you'll [have to cmd+click on a given line to be taken to the original source](http://stackoverflow.com/questions/19550060/how-do-i-toggle-source-mapping-in-safari-7).  
- 2. Do **not** enable serving files from your filesystem in Chrome dev tools. If you do, Chrome (and perhaps other browsers) may not show you the latest version of your code after you make a source code change. Instead **you must close the source view tab you were using and reopen it to see the updated source code**. It appears Chrome clings to the old sourcemap until you close and reopen the source view tab. To clarify, you don't have to close the actual tab that is displaying the app, just the tab in the console that's displaying the source file that you just changed.  
+ 1. Browsers vary in the way they allow you to view the original source. Chrome automatically shows the original source if a sourcemap is available. Safari, in contrast, will display the minified source and you'll [have to cmd+click on a given line to be taken to the original source](http://stackoverflow.com/questions/19550060/how-do-i-toggle-source-mapping-in-safari-7).
+ 2. Do **not** enable serving files from your filesystem in Chrome dev tools. If you do, Chrome (and perhaps other browsers) may not show you the latest version of your code after you make a source code change. Instead **you must close the source view tab you were using and reopen it to see the updated source code**. It appears Chrome clings to the old sourcemap until you close and reopen the source view tab. To clarify, you don't have to close the actual tab that is displaying the app, just the tab in the console that's displaying the source file that you just changed.
  3. If the latest source isn't displaying the console, force a refresh. Sometimes Chrome seems to hold onto a previous version of the sourcemap which will cause you to see stale code.
+
+#### Debugging in Visual Studio Code:
+  * Install the [Debugger for Chrome](https://marketplace.visualstudio.com/items?itemName=msjsdiag.debugger-for-chrome) extension.
+  * Follow the instructions on how to [configure debugging in Visual Studio code](https://github.com/Microsoft/vscode-chrome-debug/blob/master/README.md#using-the-debugger).
+
+Don't see your favorite code editor debugging configuration here? Submit a PR and we'll be glad to add it to the FAQ.md.
 
 ### Why does the build use npm scripts instead of Gulp or Grunt?
 In short, Gulp is an unnecessary abstraction that creates more problems than it solves. [Here's why](https://medium.com/@housecor/why-i-left-gulp-and-grunt-for-npm-scripts-3d6853dd22b8#.vtaziro8n).
@@ -184,7 +203,7 @@ In short, Gulp is an unnecessary abstraction that creates more problems than it 
 This assures that the build won't break when some new version is released. Unfortunately, many package authors don't properly honor [Semantic Versioning](http://semver.org), so instead, as new versions are released, I'll test them and then introduce them into the starter kit. But yes, this means when you do `npm update` no new dependencies will be pulled down. You'll have to update package.json with the new version manually.
 
 ### How do I handle images?
-Via <a href="https://github.com/webpack/file-loader">Webpack's file loader</a>. Example: 
+Via <a href="https://github.com/webpack/file-loader">Webpack's file loader</a>. Example:
 
 ```
 <img src={require('./src/images/myImage.jpg')} />
@@ -206,11 +225,10 @@ Install the [Redux devtools extension](https://chrome.google.com/webstore/detail
 Hot reloading doesn't always play nicely with stateless functional components at this time. [This is a known limitation that is currently being worked](https://github.com/gaearon/babel-plugin-react-transform/issues/57). To avoid issues with hot reloading for now, use a traditional class-based React component at the top of your component hierarchy.
 
 ### How do I setup code coverage reporting?
-Using the `npm run test:cover` command to run the tests, building a code coverage report. The report is written to `coverage/index.html`. A quick way to check coverage is:
+Using the `npm run test:cover` command to run the tests, building a code coverage report. The report is written to `coverage/index.html`. Slingshot provides a script for this:
 
 ```bash
-npm run test:cover
-open ./coverage/index.html
+npm run open:cover
 ```
 
 You can add code coverage metrics to your `README.md` file and pull by integrating with [Coveralls](https://coveralls.io/).
@@ -222,4 +240,7 @@ You can add code coverage metrics to your `README.md` file and pull by integrati
 That's it! Travis will now execute the `npm run test:cover:travis` script after a successful build, which will write the coverage report in the standard lcov format and send it directly to Coveralls. The environment variables provided for travis jobs are used to automatically target the correct Coveralls project, as long as it is set up as described above.
 
 You can get the badge from the Coveralls website.
+
+###What about TypeScript?
+Here's a [fork with TS support](https://github.com/typescriptcrew/ts-react-slingshot):
 

@@ -15,7 +15,7 @@ export default {
       threeYear: 0
     }
   },
-  
+
   etsy: {
     category: ['ALL'],
   },

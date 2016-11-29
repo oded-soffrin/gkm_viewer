@@ -1,6 +1,6 @@
 # Logs
 logs
-*.log
+*.log*
 
 # Runtime data
 pids
@@ -31,6 +31,9 @@ dist
 
 #Webstorm metadata
 .idea
+# IDEA/Webstorm project files
+.idea
+*.iml
 
 #VSCode metadata
 .vscode

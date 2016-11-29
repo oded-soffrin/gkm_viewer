@@ -13,8 +13,8 @@ function configureStoreProd(initialState) {
   ];
 
   return createStore(rootReducer, initialState, compose(
-      applyMiddleware(...middlewares)
-      )
+    applyMiddleware(...middlewares)
+    )
   );
 }
 
@@ -32,8 +32,8 @@ function configureStoreDev(initialState) {
 
   const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose; // add support for Redux dev tools
   const store = createStore(rootReducer, initialState, composeEnhancers(
-      applyMiddleware(...middlewares)
-      )
+    applyMiddleware(...middlewares)
+    )
   );
 
   if (module.hot) {
