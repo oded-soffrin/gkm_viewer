@@ -1,7 +1,9 @@
 import React from 'react';
 import { Route, IndexRoute } from 'react-router';
 
+import Admin from './components/Admin';
 import App from './components/App';
+import AdminHomePage from './components/AdminHomePage';
 import HomePage from './components/HomePage';
 import GKMHomePage from './components/GKMHomePage';
 import IgPage from './containers/InstagramPage'; // eslint-disable-line import/no-named-as-default
@@ -13,11 +15,14 @@ import EtsyPage from "./containers/EtsyPage";
 export default (
     <Route path="/" component={App}>
         <IndexRoute component={HomePage}/>
-        <Route path="gkm" component={GKMHomePage}/>
-        <Route path="etsy" component={EtsyPage}/>
-        <Route path="ig" component={IgPage}/>
-        <Route path="fuel-savings" component={FuelSavingsPage}/>
-        <Route path="about" component={AboutPage}/>
-        <Route path="*" component={NotFoundPage}/>
+        <Route path="/admin" component={Admin}>
+                <IndexRoute component={AdminHomePage}/>
+                <Route path="gkm" component={GKMHomePage}/>
+                <Route path="etsy" component={EtsyPage}/>
+                <Route path="ig" component={IgPage}/>
+                <Route path="fuel-savings" component={FuelSavingsPage}/>
+                <Route path="about" component={AboutPage}/>
+                <Route path="*" component={NotFoundPage}/>
+        </Route>
     </Route>
 );

@@ -36,7 +36,7 @@ class GKMHomePage extends React.Component {
     }
     let next_items = [];
     for (let i = 0; i < this.state.next_items_to_tweet.length; i++) {
-      next_items.push(<EtsyListing etsyFu={true} type='gallery' data={this.state.next_items_to_tweet[i]} />);
+      next_items.push(<EtsyListing etsyFu={true} type="gallery" data={this.state.next_items_to_tweet[i]} />);
     }
 
 
