@@ -70,11 +70,21 @@ td.fuel-savings-label { width: 175px; }
   width: calc(30% - 10px);
   vertical-align: top;
   text-align: center;
-
 }
+
+.listing-details {
+  position: absolute;
+  width: 100%;
+  background: white;
+  height: 100px;
+  left:0;
+}
+
 @media only screen and (max-device-width: 480px) {
   body {
     padding: 0px 10px;
   }
+
 }
+
 

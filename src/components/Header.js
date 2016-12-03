@@ -1,6 +1,6 @@
 import React from 'react';
 import {Link} from 'react-router';
-import '../styles/menu.scss';
+import '../styles/header.scss';
 
 let Menu = require('react-burger-menu').stack;
 

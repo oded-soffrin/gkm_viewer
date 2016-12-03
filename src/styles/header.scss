@@ -1,10 +1,32 @@
+.header{
+
+  .header-element {
+    display: inline-block;
+    vertical-align: middle;
+    text-align: center;
+  }
+
+  .menu {
+    width:20%;
+  }
+
+  .logo {
+    width:80%;
+    img {
+      width: 100%;
+    }
+  }
+}
+
+
 .bm-burger-button {
   position: fixed;
   width: 36px;
   height: 30px;
-  right: 36px;
-  top: 36px;
+  right: 20px;
+  top: 25px;
 }
+
 
 /* Color/shape of burger icon bars */
 .bm-burger-bars {

@@ -20,6 +20,7 @@ export default {
     listings: [],
     categories: {},
     category: ['ALL'],
+    itemSelected: -1
   },
   ig: {
     nonfollowers: []

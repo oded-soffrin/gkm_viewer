@@ -18,3 +18,7 @@ export function loadItems() {
 export function categorySelect(step, stepIdx = 1) {
   return {type: types.ETSY_CATEGORY_STEP, step, stepIdx};
 }
+
+export function galleryItemClick(idx) {
+  return {type: types.GALLERY_ITEM_CLICK, idx};
+}

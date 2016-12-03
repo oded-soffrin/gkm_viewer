@@ -2,8 +2,8 @@
 import React, {PropTypes} from 'react';
 import {Link} from 'react-router';
 import _ from 'lodash';
-import EtsyListing from './Etsy/EtsyListing';
-import Header from './Header';
+import ShopListing from './ShopListing';
+import Header from '../Header';
 
 
 class ShopPage extends React.Component {
@@ -17,14 +17,13 @@ class ShopPage extends React.Component {
   }
 
   render () {
-
-    console.log(this.props.data.category );
     let current_cats = this.props.data.category;
     let catsList, cats, step, title;
     if (current_cats.length > 1) {
       title = _.last(current_cats)
       ;
       catsList = [];
+      let idx = 0;
       for (let i = 0; i < this.props.data.listings.length; i++) {
         let l = this.props.data.listings[i];
 
@@ -35,12 +34,13 @@ class ShopPage extends React.Component {
             isInCategory = false;
           }
         });
+
         if (isInCategory) {
-          catsList.push(<EtsyListing type='gallery' key={l.url} data={l}/>);
+          catsList.push(<ShopListing idx={idx} key={l.url} data={l} selected={this.props.data.itemSelected == idx} onSelect={this.props.actions.galleryItemClick}/>);
+          idx += 1;
         }
       }
     } else {
-      console.log('yo2');
       if (current_cats.length > 0 && current_cats[0] != 'ALL') { //selected
         step = 2;
         cats = this.props.data.categories[current_cats[0]];
@@ -49,7 +49,7 @@ class ShopPage extends React.Component {
         cats = this.props.data.categories;
       }
       title = 'Categories';
-      catsList = _.map(cats, (nextCategories,cat) => { return <div className="category" key={cat} onClick={() => {this.props.actions.categorySelect(cat, step)}}>{cat}</div>});
+      catsList = _.map(cats, (nextCategories,cat) => { return <div className="category" key={cat} onClick={() => {this.props.actions.categorySelect(cat, step);}}>{cat}</div>; });
     }
 
     return (

@@ -1,6 +1,6 @@
 import React, {PropTypes} from 'react';
 import $ from 'jquery';
-import '../styles/gkm-home-page.css';
+import '../styles/gkm-home-page.scss';
 import {API_URL} from '../constants/consts';
 import Tweet from './Twitter/tweet';
 import EtsyListing from './Etsy/EtsyListing';
