@@ -1,18 +1,76 @@
-import React from 'react';
+
+import React, {PropTypes} from 'react';
 import {Link} from 'react-router';
-const ShopPage = () => {
-  return (
-    <div className="shop-page">
-      <img width="100%" src={require('../images/logo.jpg')} />
+import _ from 'lodash';
+import EtsyListing from './Etsy/EtsyListing';
+import Header from './Header';
 
 
-      Categories...
+class ShopPage extends React.Component {
 
-      <p>
-        <Link to="/">Home</Link>
-      </p>
-    </div>
-  );
+  constructor(props, context) {
+    super(props, context);
+  }
+
+  componentDidMount() {
+    this.props.actions.loadItems();
+  }
+
+  render () {
+
+    console.log(this.props.data.category );
+    let current_cats = this.props.data.category;
+    let catsList, cats, step, title;
+    if (current_cats.length > 1) {
+      title = _.last(current_cats)
+      ;
+      catsList = [];
+      for (let i = 0; i < this.props.data.listings.length; i++) {
+        let l = this.props.data.listings[i];
+
+        let isInCategory = true;
+        let cat_path = l['category_path'];
+        _.each(cat_path, (current_item_c, i) => {
+          if (i < current_cats.length && current_item_c != current_cats[i]) {
+            isInCategory = false;
+          }
+        });
+        if (isInCategory) {
+          catsList.push(<EtsyListing type='gallery' key={l.url} data={l}/>);
+        }
+      }
+    } else {
+      console.log('yo2');
+      if (current_cats.length > 0 && current_cats[0] != 'ALL') { //selected
+        step = 2;
+        cats = this.props.data.categories[current_cats[0]];
+      } else {
+        step = 1;
+        cats = this.props.data.categories;
+      }
+      title = 'Categories';
+      catsList = _.map(cats, (nextCategories,cat) => { return <div className="category" key={cat} onClick={() => {this.props.actions.categorySelect(cat, step)}}>{cat}</div>});
+    }
+
+    return (
+        <div className="shop-page">
+          <Header />
+          <h2>{title}</h2>
+
+          {catsList}
+          <p>
+            <Link to="/">Home</Link>
+          </p>
+        </div>
+    );
+  }
+}
+
+ShopPage.propTypes = {
+  actions: PropTypes.object.isRequired,
+  data: PropTypes.object.isRequired
 };
 
 export default ShopPage;
+
+

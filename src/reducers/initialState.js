@@ -17,6 +17,8 @@ export default {
   },
 
   etsy: {
+    listings: [],
+    categories: {},
     category: ['ALL'],
   },
   ig: {

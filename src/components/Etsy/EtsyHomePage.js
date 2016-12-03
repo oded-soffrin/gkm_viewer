@@ -1,17 +1,14 @@
 import React, {PropTypes} from 'react';
-import $ from 'jquery';
 import _ from 'lodash';
-import '../../styles/etsy-home-page.css';
+import '../../styles/etsy-home-page.scss';
 import EtsyListing from './EtsyListing';
 import PrettyJson from '../PrettyJson';
 import EtsyCategories from './EtsyCategories';
-import {API_URL} from '../../constants/consts';
 
 class EtsyHomePage extends React.Component {
   constructor(props, context) {
     super(props, context);
     this.state = {
-      etsy_listings: [],
       config: {
         debug: false,
         type: "gallery"
@@ -21,32 +18,16 @@ class EtsyHomePage extends React.Component {
   }
 
   componentDidMount() {
-    $.get(API_URL + '/etsy_listings', (etsy_listings) => {
-      this.setState(_.merge({}, this.state,{
-        etsy_listings: etsy_listings
-      }));
-    });
+    this.props.actions.loadItems();
   }
-
 
   render() {
     let listings = [];
-    let categories = {};
     let c = this.props.data.category;
 
-    for (let i = 0; i < this.state.etsy_listings.length; i++) {
-      let l = this.state.etsy_listings[i];
+    for (let i = 0; i < this.props.data.listings.length; i++) {
+      let l = this.props.data.listings[i];
       let cat_path = l['category_path'];
-
-      //build categories array - should be only when updating items
-      let cc = categories;
-      _.each(cat_path, (c) => {
-        cc = cc ||{};
-        cc[c] = cc[c] || {};
-        cc = cc[c];
-      });
-
-
 
       if (c[0] == 'ALL') {
         listings.push(<EtsyListing key={l.url} type={this.state.config.type} data={l} />);
@@ -66,7 +47,7 @@ class EtsyHomePage extends React.Component {
       }
     }
 
-    let etsyCategories = <EtsyCategories current={c} data={categories} onSelectCategory={this.props.onSelectCategory} />;
+    let etsyCategories = <EtsyCategories current={c} data={this.props.data.categories} onSelectCategory={this.props.actions.categorySelect} />;
 
     return (
         <div>
@@ -75,9 +56,9 @@ class EtsyHomePage extends React.Component {
           <div>
             <h3>categories - {this.props.data.category.join(' ~ ')}</h3>
 
-            {this.state.config.debug ? (<PrettyJson data={categories}/>) : ''}
+            {this.state.config.debug ? (<PrettyJson data={this.props.data.categories}/>) : ''}
             {etsyCategories}
-            {this.state.config.debug ? (<PrettyJson data={this.state.etsy_listings[0]}/>) : ''}
+            {this.state.config.debug ? (<PrettyJson data={this.props.data.listings[0]}/>) : ''}
 
             <h3>listings {listings.length}</h3>
             {listings}
@@ -90,7 +71,7 @@ class EtsyHomePage extends React.Component {
 
 EtsyHomePage.propTypes = {
   data: PropTypes.object.isRequired,
-  onSelectCategory: PropTypes.func.isRequired
+  actions: PropTypes.object.isRequired
 };
 
 

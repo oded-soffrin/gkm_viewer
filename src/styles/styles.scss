@@ -31,7 +31,23 @@ h2 {
 input.small { width: 46px; }
 td.fuel-savings-label { width: 175px; }
 
+.header{
+  .header-element {
+    display: inline-block;
+    vertical-align: middle;
+    text-align: center;
+  }
+  .menu {
+    width:20%;
+  }
 
+  .logo {
+    width:80%;
+    img {
+      width: 100%;
+    }
+  }
+}
 .home-page {
   .button {
     text-align: center;
@@ -44,9 +60,23 @@ td.fuel-savings-label { width: 175px; }
     width: calc(50% - 20px);
   }
 }
+
+.category {
+  display: inline-block;
+  width: 30%;
+  height: 50px;
+  margin: 10px;
+  background: lightblue;
+  width: calc(30% - 10px);
+  vertical-align: top;
+  text-align: center;
+
+}
 @media only screen and (max-device-width: 480px) {
   body {
     padding: 0px 10px;
   }
+
 }
+
 

@@ -1,5 +1,5 @@
 import React, {PropTypes} from 'react';
-import '../../styles/etsy-home-page.css';
+import '../../styles/etsy-home-page.scss';
 import PrettyJson from '../PrettyJson';
 import IgPerson from './IgPerson';
 
@@ -11,8 +11,7 @@ class IgHomePage extends React.Component {
   componentDidMount() {
     this.props.actions.loadNonFollowers();
   }
-
-
+  
   render() {
 
     let debug = false;

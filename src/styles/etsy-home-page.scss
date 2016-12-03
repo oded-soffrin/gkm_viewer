@@ -1,8 +1,7 @@
 
 .listing {
   border: 1px solid #eee;
-  width: 30%;
-  padding: 10px;
+  width: 32%;
 
   img {
     width: 100%;
@@ -64,13 +63,5 @@
 
     }
 
-  }
-}
-
-@media only screen and (max-device-width: 480px) {
-  .listing {
-    width: 100%;
-    padding: 0;
-    border: 0;
   }
 }
