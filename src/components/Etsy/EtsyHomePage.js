@@ -21,6 +21,12 @@ class EtsyHomePage extends React.Component {
     this.props.actions.loadItems();
   }
 
+  toEtsyListing (listing) {
+    return (
+        <EtsyListing key={listing.url} type={this.state.config.type} data={listing} />
+    );
+  }
+
   render() {
     let listings = [];
     let c = this.props.data.category;
@@ -30,7 +36,7 @@ class EtsyHomePage extends React.Component {
       let cat_path = l['category_path'];
 
       if (c[0] == 'ALL') {
-        listings.push(<EtsyListing key={l.url} type={this.state.config.type} data={l} />);
+        listings.push(this.toEtsyListing(l));
       }
 
       else {
@@ -42,7 +48,7 @@ class EtsyHomePage extends React.Component {
         });
 
         if (isInCategory) {
-          listings.push(<EtsyListing key={l.url} type={this.state.config.type} data={l}/>);
+          listings.push(this.toEtsyListing(l));
         }
       }
     }

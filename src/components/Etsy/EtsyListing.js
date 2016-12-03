@@ -1,8 +1,14 @@
 import React, {PropTypes} from 'react';
+import $ from 'jquery';
+import {API_URL} from '../../constants/consts';
+
 
 class EtsyListing extends React.Component {
   constructor(props, context) {
     super(props, context);
+    this.state = {
+      twitterTitle: this.props.data.twitterTitle
+    };
   }
 
   isGallery() {
@@ -11,6 +17,26 @@ class EtsyListing extends React.Component {
 
   isEtsyFu () {
     return (this.props.etsyFu == true);
+  }
+
+  updateDb () {
+    let listing = this.props.data;
+    let twitterTitle = this.state.twitterTitle;
+    $.ajax({
+      type: "PUT",
+      url: API_URL + '/listing/' + listing.id,
+      contentType: 'application/json',
+      data: JSON.stringify({twitterTitle}),
+      success: (r) => {
+        console.log(r);
+      }
+    });
+  }
+
+  updateInputValue(evt) {
+    this.setState({
+      twitterTitle: evt.target.value
+    });
   }
 
   render() {
@@ -26,24 +52,27 @@ class EtsyListing extends React.Component {
     }
     let classNameStr = className.join(' ');
 
-    let update = '';
+    let etsuFu = '';
 
     if (this.isEtsyFu()) {
-      update = (<div>
+      etsuFu = (<div>
+        <div className="title">{e.title.slice(0,88)}...(LINK) </div>
+        <div className="description">{e.description} </div>
         <h6>update twiiter message:</h6>
-        <input type="text" maxLength="90"/>
-        <button onClick={() => {alert('I should update the DB but i\'m too tired');}}> update </button>
+        <input id={'twitterTitleInput' + e.id} type="text" maxLength="90" defaultValue={this.state.twitterTitle} onChange={(evt) => this.updateInputValue(evt)}/>
+        <button onClick={() => {this.updateDb();}}> Update </button>
       </div>);
+
     }
     return (<div className={classNameStr}>
       <a href={e.url} target="_blank">
         <img src={e.images[0].url_570xN} />
         {!this.isGallery() ? <div className="title">{e.title} </div> : ''}
-        {this.isEtsyFu() ? <div className="title">{e.title.slice(0,88)}...(LINK) </div> : ''}
-      </a>
-      {!this.isGallery() ? <div>{e.description}</div> : ''}
 
-      {update}
+      </a>
+
+      {!this.isGallery() ? <div>{e.description}</div> : ''}
+      {etsuFu}
     </div>);
   }
 

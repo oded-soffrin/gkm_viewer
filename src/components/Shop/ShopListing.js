@@ -24,7 +24,7 @@ class ShopListing extends React.Component {
     return (
           <div className="listing gallery">
             <div onClick={() => this.props.onSelect(this.props.idx)}>
-              <img src={e.images[this.props.selected ? 0 : 1].url_570xN} />
+                <div className="img" style={{backgroundSize: 'cover',  backgroundImage: "url('" + e.images[this.props.selected ? 0 : 1].url_570xN + "')"}} />
             </div>
             {details}
 
@@ -36,7 +36,8 @@ class ShopListing extends React.Component {
 ShopListing.propTypes = {
   idx: PropTypes.number.isRequired,
   data: PropTypes.object.isRequired,
-  onSelect: PropTypes.func.isRequired
+  onSelect: PropTypes.func.isRequired,
+  selected: PropTypes.bool.isRequired
 };
 
 export default ShopListing;
