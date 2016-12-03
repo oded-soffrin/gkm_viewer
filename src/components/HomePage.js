@@ -3,6 +3,9 @@ import {Link} from 'react-router';
 import Header from './Header';
 
 
+
+let Menu = require('react-burger-menu').stack;
+
 class HomePage extends React.Component {
 
   constructor(props, context) {
@@ -11,7 +14,9 @@ class HomePage extends React.Component {
 
   render() {
     return (
+
         <div className="home-page">
+
           <Header />
           <img width="100%" src={require('../images/first.jpg')}/>
 
