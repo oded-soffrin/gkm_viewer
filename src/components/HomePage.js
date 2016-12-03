@@ -2,10 +2,6 @@ import React from 'react';
 import {Link} from 'react-router';
 import Header from './Header';
 
-
-
-let Menu = require('react-burger-menu').stack;
-
 class HomePage extends React.Component {
 
   constructor(props, context) {
