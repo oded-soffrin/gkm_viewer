@@ -1,11 +1,17 @@
 import React from 'react';
 import {Link} from 'react-router';
 import Header from './Header';
+import SearchBar from './SearchBar';
 
 class HomePage extends React.Component {
 
   constructor(props, context) {
     super(props, context);
+  }
+
+
+  componentDidMount() {
+    this.props.actions.loadItems();
   }
 
   render() {
@@ -19,8 +25,8 @@ class HomePage extends React.Component {
 
           <Link className="button" to="/about">Who are we?</Link>
           <Link className="button" to="/shop">Let's shop!</Link>
+          <SearchBar listings={this.props.data.listings} />
 
-          <h2>Eliran! you took all the papers I can't remember the design...</h2>
         </div>
     );
   }

@@ -16,7 +16,7 @@ import ShopPage from "./components/Shop/ShopPage.js";
 
 export default (
     <Route path="/" component={App}>
-        <IndexRoute component={HomePage}/>
+        <IndexRoute component={EtsyWrapper(HomePage)}/>
         <Route path="about" component={AboutPage}/>
         <Route path="shop" component={EtsyWrapper(ShopPage)}/>
         <Route path="/admin" component={Admin}>
