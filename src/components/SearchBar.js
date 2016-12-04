@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {PropTypes} from 'react';
 import Autosuggest from 'react-autosuggest';
 import '../styles/search-bar.scss'; // Yep, that's right. You can import SASS/CSS files too! Webpack will run the associated loader and plug this into the page.
 import { browserHistory } from 'react-router';
@@ -13,7 +13,9 @@ const getSuggestionValue = suggestion => suggestion.title;
 // Use your imagination to render suggestions.
 const renderSuggestion = suggestion => (
     <div>
+      <img style={{float: 'left'}} src={suggestion.images[0].url_75x75} />
       {suggestion.title}
+      <div style={{clear: 'both'}} />
     </div>
 );
 
@@ -46,8 +48,7 @@ class SearchBar extends React.Component {
 
   onChange = (event, { newValue, method}) => {
     if (method == 'click') {
-      browserHistory.push('/shop')
-
+      browserHistory.push('/shop');
     }
 
     this.setState({
@@ -75,7 +76,7 @@ class SearchBar extends React.Component {
 
     // Autosuggest will pass through all these props to the input element.
     const inputProps = {
-      placeholder: 'Search for an earring',
+      placeholder: 'Search for your next piece...',
       value,
       onChange: this.onChange
     };
@@ -93,5 +94,9 @@ class SearchBar extends React.Component {
     );
   }
 }
+
+SearchBar.propTypes = {
+  listings: PropTypes.object.isRequired
+};
 
 export default SearchBar;
