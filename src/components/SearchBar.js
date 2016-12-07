@@ -8,7 +8,7 @@ import { browserHistory } from 'react-router';
 // When suggestion is clicked, Autosuggest needs to populate the input element
 // based on the clicked suggestion. Teach Autosuggest how to calculate the
 // input value for every given suggestion.
-const getSuggestionValue = suggestion => suggestion.title;
+const getSuggestionValue = suggestion => suggestion.id;
 
 // Use your imagination to render suggestions.
 const renderSuggestion = suggestion => (
@@ -48,12 +48,14 @@ class SearchBar extends React.Component {
 
   onChange = (event, { newValue, method}) => {
     if (method == 'click') {
-      browserHistory.push('/shop');
+      browserHistory.push('/shop/' + newValue);
+    } else {
+      this.setState({
+        value: newValue
+      });
     }
 
-    this.setState({
-      value: newValue
-    });
+
   };
 
   // Autosuggest will call this function every time you need to update suggestions.

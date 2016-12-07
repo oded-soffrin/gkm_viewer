@@ -12,10 +12,11 @@ export default function etsyReducer(state = initialState.etsy, action) {
 
       newState.listings = action.listings;
 
+      let listingIdToIdx = {};
       let categories = {};
-      for (let i = 0; i < action.listings.length; i++) {
-        let l = action.listings[i];
-        let cat_path = l['category_path'];
+      _.each(action.listings, (listing, i) => {
+        listingIdToIdx[listing.id.toString()] = i;
+        let cat_path = listing['category_path'];
 
         //build categories array - should be only when updating items
         let cc = categories;
@@ -24,8 +25,9 @@ export default function etsyReducer(state = initialState.etsy, action) {
           cc[c] = cc[c] || {};
           cc = cc[c];
         });
-      }
+      });
       newState.categories = categories;
+      newState.listingIdToIdx = listingIdToIdx;
       return newState;
     }
     case ETSY_CATEGORY_STEP:

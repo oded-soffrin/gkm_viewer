@@ -18,6 +18,7 @@ export default {
 
   etsy: {
     listings: [],
+    listingIdToIdx: {},
     categories: {},
     category: ['ALL'],
     itemSelected: -1

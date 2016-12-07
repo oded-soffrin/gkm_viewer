@@ -12,6 +12,7 @@ import IgPage from './containers/InstagramPage'; // eslint-disable-line import/n
 import FuelSavingsPage from './containers/FuelSavingsPage'; // eslint-disable-line import/no-named-as-default
 import AboutPage from './components/AboutPage.js';
 import NotFoundPage from './components/NotFoundPage.js';
+import ProductPageContainer from "./containers/ProductPageContainer.js";
 import ShopPage from "./components/Shop/ShopPage.js";
 
 export default (
@@ -19,6 +20,8 @@ export default (
         <IndexRoute component={EtsyWrapper(HomePage)}/>
         <Route path="about" component={AboutPage}/>
         <Route path="shop" component={EtsyWrapper(ShopPage)}/>
+        <Route path="shop/:id" component={ProductPageContainer} />
+
         <Route path="/admin" component={Admin}>
                 <IndexRoute component={AdminHomePage}/>
                 <Route path="gkm" component={GKMHomePage}/>

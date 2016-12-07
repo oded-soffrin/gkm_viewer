@@ -1,8 +1,14 @@
 import React, {PropTypes} from 'react';
+import {browserHistory } from 'react-router';
 
 class ShopListing extends React.Component {
   constructor(props, context) {
     super(props, context);
+  }
+
+  onMore (listing) {
+    browserHistory.push('/shop/' + listing.id);
+
   }
 
   render() {
@@ -16,7 +22,12 @@ class ShopListing extends React.Component {
     if (this.props.selected) {
      details = (
          <div className="listing-details">
-           {e.title}
+           <div className="title">
+             {e.title}
+           </div>
+           <div className="more">
+             <div className="button" onClick={() => this.onMore(e)}>I WANT IT!</div>
+           </div>
          </div>
      );
     }
