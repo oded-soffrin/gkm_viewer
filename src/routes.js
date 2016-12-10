@@ -14,13 +14,15 @@ import AboutPage from './components/AboutPage.js';
 import NotFoundPage from './components/NotFoundPage.js';
 import ProductPageContainer from "./containers/ProductPageContainer.js";
 import ShopPage from "./components/Shop/ShopPage.js";
+import ShoppingCartContainer from "./containers/DemoShopingCartContainer"
 
 export default (
     <Route path="/" component={App}>
-        <IndexRoute component={EtsyWrapper(HomePage)}/>
+        <IndexRoute component={HomePage}/>
         <Route path="about" component={AboutPage}/>
-        <Route path="shop" component={EtsyWrapper(ShopPage)}/>
-        <Route path="shop/:id" component={ProductPageContainer} />
+        <Route path="shop" component={ShopPage}/>
+            <Route path="shop/cartExample" component={ShoppingCartContainer} />
+            <Route path="shop/:id" component={ProductPageContainer} />
 
         <Route path="/admin" component={Admin}>
                 <IndexRoute component={AdminHomePage}/>

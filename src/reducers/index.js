@@ -1,15 +1,36 @@
 import { combineReducers } from 'redux';
 import fuelSavings from './fuelSavingsReducer';
-import etsy from './etsyReducer';
 import ig from './igReducer';
+import cart, * as fromCart from './cart'
+import products, * as fromProducts from './products'
+
 
 import {routerReducer} from 'react-router-redux';
 
-const rootReducer = combineReducers({
+export default combineReducers({
   fuelSavings,
-  etsy,
   ig,
+  cart,
+  products,
   routing: routerReducer
 });
 
-export default rootReducer;
+
+
+const getAddedIds = state => fromCart.getAddedIds(state.cart)
+const getQuantity = (state, id) => fromCart.getQuantity(state.cart, id)
+const getProduct = (state, id) => fromProducts.getProduct(state.products, id)
+
+export const getTotal = state =>
+    getAddedIds(state)
+        .reduce((total, id) =>
+            total + getProduct(state, id).price * getQuantity(state, id),
+            0
+        )
+        .toFixed(2)
+
+export const getCartProducts = state =>
+    getAddedIds(state).map(id => ({
+      ...getProduct(state, id),
+      quantity: getQuantity(state, id)
+    }))

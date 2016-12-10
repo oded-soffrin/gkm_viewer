@@ -1,34 +1,36 @@
 import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import * as actions from '../actions/EtsyActions';
+import {categorySelect, galleryItemClick} from '../actions';
 
 function EtsyWrapper(WrappedComponent) {
 
   const wrappedComponentInner = (props) => {
     return (
         <WrappedComponent
-            actions={props.actions}
-            data={props.etsy}
+            {...props}
         />
     );
   };
 
   wrappedComponentInner.propTypes = {
-    actions: PropTypes.object.isRequired,
-    etsy: PropTypes.object.isRequired
+    categories: PropTypes.object.isRequired,
+    category: PropTypes.array.isRequired,
+    itemSelected: PropTypes.number.isRequired,
+    categorySelect: PropTypes.func.isRequired,
+    galleryItemClick: PropTypes.func.isRequired
   };
 
   function mapStateToProps(state) {
     return {
-      etsy: state.etsy
-    };
+        categories: state.products.categories,
+        category: state.products.category,
+        itemSelected: state.products.itemSelected
+      }
   }
 
   function mapDispatchToProps(dispatch) {
-    return {
-      actions: bindActionCreators(actions, dispatch)
-    };
+    return bindActionCreators({categorySelect, galleryItemClick}, dispatch);
   }
 
   return connect(

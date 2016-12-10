@@ -17,10 +17,6 @@ class EtsyHomePage extends React.Component {
 
   }
 
-  componentDidMount() {
-    this.props.actions.loadItems();
-  }
-
   toEtsyListing (listing) {
     return (
         <EtsyListing key={listing.url} type={this.state.config.type} data={listing} />

@@ -38,7 +38,7 @@ class SearchBar extends React.Component {
     const inputValue = value.trim().toLowerCase();
     const inputLength = inputValue.length;
 
-    return inputLength === 0 ? [] : this.props.listings.filter((possibleResult) => {
+    return inputLength === 0 ? [] : this.props.products.filter((possibleResult) => {
           return (possibleResult.title.toLowerCase().match(inputValue) != null);
         }
     );
@@ -98,7 +98,7 @@ class SearchBar extends React.Component {
 }
 
 SearchBar.propTypes = {
-  listings: PropTypes.object.isRequired
+  products: PropTypes.array.isRequired
 };
 
 export default SearchBar;

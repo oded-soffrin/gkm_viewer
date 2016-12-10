@@ -9,25 +9,16 @@ class ProductPage extends React.Component {
     super(props, context);
   }
 
-  componentDidMount() {
-    this.props.actions.loadItems();
-  }
-
-  componentDidUpdate() {
-    console.log('PP', this.props);
-
-  }
-
-  get listing () {
-    return this.props.listing || {};
+  get product () {
+    return this.props.product || {};
   }
 
   get images () {
-    return this.listing.images || [];
+    return this.product.images || [];
   }
 
   get title () {
-    return this.listing.title
+    return this.product.title
   }
 
   render () {
@@ -41,13 +32,13 @@ class ProductPage extends React.Component {
         </div>
         <div className="thumbnails">
           <div className="sec-image">
-            <img src={this.images[1].url_570xN} />
+            <img src={(this.images[1] || {}) .url_570xN} />
           </div>
           <div className="sec-image">
-            <img src={this.images[2].url_570xN} />
+            <img src={(this.images[2] || {}) .url_570xN} />
           </div>
           <div className="sec-image">
-            <img src={this.images[3].url_570xN} />
+            <img src={(this.images[3] || {}) .url_570xN} />
           </div>
         </div>
       </div>);
@@ -58,15 +49,18 @@ class ProductPage extends React.Component {
           <Header />
           <h2>{this.title}</h2>
           {imagesPanel}
+          <div className="button" onClick={this.props.onAddToCartClicked}>Add to Cart</div>
+
+
         </div>
     );
   }
 }
 
 ProductPage.propTypes = {
-  actions: PropTypes.object.isRequired,
   id: PropTypes.number.isRequired,
-  listing: PropTypes.object
+  product: PropTypes.object,
+  onAddToCartClicked: PropTypes.func.isRequired
 };
 
 export default ProductPage;

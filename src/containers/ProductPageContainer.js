@@ -1,43 +1,36 @@
 import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
-import {bindActionCreators} from 'redux';
-import * as actions from '../actions/EtsyActions';
 import ProductPage from '../components/Shop/ProductPage';
+import { getProduct } from '../reducers/products'
+import { addToCart } from '../actions'
 
-export const ProductPageContainer = (props) => {
+const ProductPageContainer = ({id, product, addToCart}) => {
   return (
       <ProductPage
-          actions={props.actions}
-          id={props.id}
-          listing={props.listing}
+          id={id}
+          product={product}
+          onAddToCartClicked={() => addToCart(id)}
       />
   );
 };
 
 ProductPageContainer.propTypes = {
-  actions: PropTypes.object.isRequired,
   id: PropTypes.number.isRequired,
-  listing: PropTypes.object
+  product: PropTypes.object,
+  addToCart: PropTypes.func.isRequired
 };
 
-function mapStateToProps(state, ownProps) {
+let mapStateToProps = (state, ownProps) => {
   let id = parseInt(ownProps.params.id);
-  let newProps = {id};
-  let listingIdx = state.etsy.listingIdToIdx[id];
-  if (listingIdx != undefined) {
-    newProps.listing = state.etsy.listings[listingIdx];
-  }
-  return newProps;
-}
-
-function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators(actions, dispatch)
+    id,
+    product: getProduct(state.products, id)
   };
 }
 
+
 export default connect(
     mapStateToProps,
-    mapDispatchToProps
+    {addToCart}
 )(ProductPageContainer);
 

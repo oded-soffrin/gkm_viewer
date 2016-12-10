@@ -1,17 +1,13 @@
-import React from 'react';
+import React, {PropTypes} from 'react';
 import {Link} from 'react-router';
 import Header from './Header';
 import SearchBar from './SearchBar';
+import ProductsHoC from "../containers/ProductsHoC"
 
 class HomePage extends React.Component {
 
   constructor(props, context) {
     super(props, context);
-  }
-
-
-  componentDidMount() {
-    this.props.actions.loadItems();
   }
 
   render() {
@@ -22,14 +18,19 @@ class HomePage extends React.Component {
           <Header />
           <img width="100%" src={require('../images/first.jpg')}/>
 
-
           <Link className="button" to="/about">Who are we?</Link>
           <Link className="button" to="/shop">Let's shop!</Link>
-          <SearchBar listings={this.props.data.listings} />
+          <SearchBar products={this.props.products} />
 
         </div>
     );
   }
 }
 
-export default HomePage;
+
+HomePage.propTypes = {
+  products: PropTypes.array.isRequired
+};
+
+
+export default ProductsHoC(HomePage);

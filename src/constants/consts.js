@@ -1,5 +1,6 @@
 function isDev () {
-  return (window.location.href.indexOf('localhost') > -1);
+  const isBrowser = typeof window !== 'undefined';
+  return (isBrowser && window.location.href.indexOf('localhost') > -1);
 }
 
 

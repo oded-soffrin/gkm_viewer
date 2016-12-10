@@ -1,10 +1,9 @@
 
 import React, {PropTypes} from 'react';
-import {Link} from 'react-router';
 import _ from 'lodash';
 import ShopListing from './ShopListing';
 import Header from '../Header';
-
+import ProductsHoC from "../../containers/ProductsHoC"
 
 class ShopPage extends React.Component {
 
@@ -12,20 +11,16 @@ class ShopPage extends React.Component {
     super(props, context);
   }
 
-  componentDidMount() {
-    this.props.actions.loadItems();
-  }
-
   render () {
-    let current_cats = this.props.data.category;
+    let current_cats = this.props.category;
     let catsList, cats, step, title;
     if (current_cats.length > 1) {
       title = _.last(current_cats)
       ;
       catsList = [];
       let idx = 0;
-      for (let i = 0; i < this.props.data.listings.length; i++) {
-        let l = this.props.data.listings[i];
+      for (let i = 0; i < this.props.products.length; i++) {
+        let l = this.props.products[i];
 
         let isInCategory = true;
         let cat_path = l['category_path'];
@@ -36,20 +31,20 @@ class ShopPage extends React.Component {
         });
 
         if (isInCategory) {
-          catsList.push(<ShopListing idx={idx} key={l.url} data={l} selected={this.props.data.itemSelected == idx} onSelect={this.props.actions.galleryItemClick}/>);
+          catsList.push(<ShopListing idx={idx} key={l.url} data={l} selected={this.props.itemSelected == idx} onSelect={this.props.galleryItemClick}/>);
           idx += 1;
         }
       }
     } else {
       if (current_cats.length > 0 && current_cats[0] != 'ALL') { //selected
         step = 2;
-        cats = this.props.data.categories[current_cats[0]];
+        cats = this.props.categories[current_cats[0]];
       } else {
         step = 1;
-        cats = this.props.data.categories;
+        cats = this.props.categories;
       }
       title = 'Categories';
-      catsList = _.map(cats, (nextCategories,cat) => { return <div className="category" key={cat} onClick={() => {this.props.actions.categorySelect(cat, step);}}>{cat}</div>; });
+      catsList = _.map(cats, (nextCategories,cat) => { return <div className="category" key={cat} onClick={() => {this.props.categorySelect(cat, step);}}>{cat}</div>; });
     }
 
     return (
@@ -58,19 +53,20 @@ class ShopPage extends React.Component {
           <h2>{title}</h2>
 
           {catsList}
-          <p>
-            <Link to="/">Home</Link>
-          </p>
         </div>
     );
   }
 }
 
 ShopPage.propTypes = {
-  actions: PropTypes.object.isRequired,
-  data: PropTypes.object.isRequired
+  categories: PropTypes.object.isRequired,
+  category: PropTypes.array.isRequired,
+  itemSelected: PropTypes.number.isRequired,
+  products: PropTypes.array.isRequired,
+  categorySelect: PropTypes.func.isRequired,
+  galleryItemClick: PropTypes.func.isRequired
 };
 
-export default ShopPage;
+export default ProductsHoC(ShopPage);
 
 
