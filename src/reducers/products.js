@@ -83,10 +83,17 @@ const category = (state = ['ALL'], action) => {
   }
 }
 
-const itemSelected = (state = -1, action) => {
+const itemSelected = (state = {}, action) => {
   switch (action.type) {
-    case GALLERY_ITEM_CLICK:
-      return action.idx
+    case GALLERY_ITEM_CLICK: {
+      let newState = {idx: action.idx}
+      if (state.idx == action.idx) {
+        newState.cnt = state.cnt + 1
+      } else {
+        newState.cnt = 1
+      }
+      return newState
+    }
     default:
       return state
   }

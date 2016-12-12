@@ -32,11 +32,12 @@ class ShopListing extends React.Component {
      );
     }
 
-    let image = e.images[Math.max((this.props.selected ? 0 : 1), e.images.length - 1)]
+
+    let imgIdx = ((this.props.selected ? this.props.selectedCnt : 0) %  e.images.length)
+    let image = e.images[imgIdx]
     if (!image) {
       return (<div />);
     }
-
 
     return (
           <div className="listing gallery">
@@ -54,7 +55,8 @@ ShopListing.propTypes = {
   idx: PropTypes.number.isRequired,
   data: PropTypes.object.isRequired,
   onSelect: PropTypes.func.isRequired,
-  selected: PropTypes.bool.isRequired
+  selected: PropTypes.bool.isRequired,
+  selectedCnt: PropTypes.number
 };
 
 export default ShopListing;

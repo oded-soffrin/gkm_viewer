@@ -22,7 +22,7 @@ function ProductsHoC(WrappedComponent) {
     addToCart: PropTypes.func.isRequired,
     categories: PropTypes.object.isRequired,
     category: PropTypes.array.isRequired,
-    itemSelected: PropTypes.number.isRequired,
+    itemSelected: PropTypes.object.isRequired,
     categorySelect: PropTypes.func.isRequired,
     galleryItemClick: PropTypes.func.isRequired
   }

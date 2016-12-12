@@ -56,8 +56,7 @@ class EtsyListing extends React.Component {
 
     if (this.isEtsyFu()) {
       etsuFu = (<div>
-        <div className="title">{e.title.slice(0,88)}...(LINK) </div>
-        <div className="description">{e.description} </div>
+        <div className="description">{e.description.slice(0, 200)}... </div>
         <h6>update twiiter message:</h6>
         <input id={'twitterTitleInput' + e.id} type="text" maxLength="90" defaultValue={this.state.twitterTitle} onChange={(evt) => this.updateInputValue(evt)}/>
         <button onClick={() => {this.updateDb();}}> Update </button>

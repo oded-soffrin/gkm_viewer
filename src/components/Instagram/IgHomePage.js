@@ -1,5 +1,4 @@
 import React, {PropTypes} from 'react';
-import '../../styles/etsy-home-page.scss';
 import PrettyJson from '../PrettyJson';
 import IgPerson from './IgPerson';
 

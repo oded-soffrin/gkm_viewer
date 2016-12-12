@@ -16,7 +16,7 @@ function EtsyWrapper(WrappedComponent) {
   wrappedComponentInner.propTypes = {
     categories: PropTypes.object.isRequired,
     category: PropTypes.array.isRequired,
-    itemSelected: PropTypes.number.isRequired,
+    itemSelected: PropTypes.object.isRequired,
     categorySelect: PropTypes.func.isRequired,
     galleryItemClick: PropTypes.func.isRequired
   };

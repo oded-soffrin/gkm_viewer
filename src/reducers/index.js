@@ -1,5 +1,4 @@
 import { combineReducers } from 'redux';
-import fuelSavings from './fuelSavingsReducer';
 import ig from './igReducer';
 import cart, * as fromCart from './cart'
 import products, * as fromProducts from './products'
@@ -8,7 +7,6 @@ import products, * as fromProducts from './products'
 import {routerReducer} from 'react-router-redux';
 
 export default combineReducers({
-  fuelSavings,
   ig,
   cart,
   products,

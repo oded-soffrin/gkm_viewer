@@ -31,7 +31,15 @@ class ShopPage extends React.Component {
         });
 
         if (isInCategory) {
-          catsList.push(<ShopListing idx={idx} key={l.url} data={l} selected={this.props.itemSelected == idx} onSelect={this.props.galleryItemClick}/>);
+          let selectedProps = (this.props.itemSelected.idx == idx) ? {selected: true, selectedCnt: this.props.itemSelected.cnt} : {selected: false}
+
+          catsList.push(<ShopListing
+              idx={idx}
+              key={l.url}
+              data={l}
+              onSelect={this.props.galleryItemClick}
+              {...selectedProps}
+          />);
           idx += 1;
         }
       }
@@ -61,7 +69,7 @@ class ShopPage extends React.Component {
 ShopPage.propTypes = {
   categories: PropTypes.object.isRequired,
   category: PropTypes.array.isRequired,
-  itemSelected: PropTypes.number.isRequired,
+  itemSelected: PropTypes.object.isRequired,
   products: PropTypes.array.isRequired,
   categorySelect: PropTypes.func.isRequired,
   galleryItemClick: PropTypes.func.isRequired
