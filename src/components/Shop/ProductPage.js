@@ -1,12 +1,13 @@
 
 import React, {PropTypes} from 'react';
 import Header from '../Header';
-
+import _ from 'lodash'
 
 class ProductPage extends React.Component {
 
   constructor(props, context) {
     super(props, context);
+    this.state = {idx: 0}
   }
 
   get product () {
@@ -21,25 +22,29 @@ class ProductPage extends React.Component {
     return this.product.title
   }
 
+  onClick(idx) {
+    this.setState({idx})
+  }
+
   render () {
 
+    let imageIdxs = [0, 1, 2, 3];
+    _.remove(imageIdxs, (e) => {return e == this.state.idx});
+
+    let secImages = _.map(imageIdxs, (i) => {
+      return (<div className="sec-image">
+        <img src={(this.images[i] || {}) .url_570xN} onClick={() => this.onClick(i)} />
+      </div>)
+    });
 
     let imagesPanel = '';
     if (this.images[0]) {
       imagesPanel = (<div className="images-panel">
         <div className="main-image">
-          <img src={this.images[0].url_570xN} />
+          <img src={this.images[this.state.idx].url_570xN}  />
         </div>
         <div className="thumbnails">
-          <div className="sec-image">
-            <img src={(this.images[1] || {}) .url_570xN} />
-          </div>
-          <div className="sec-image">
-            <img src={(this.images[2] || {}) .url_570xN} />
-          </div>
-          <div className="sec-image">
-            <img src={(this.images[3] || {}) .url_570xN} />
-          </div>
+          {secImages}
         </div>
       </div>);
     }

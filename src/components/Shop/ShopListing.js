@@ -42,7 +42,7 @@ class ShopListing extends React.Component {
     return (
           <div className="listing gallery">
             <div onClick={() => this.props.onSelect(this.props.idx)}>
-                <div className="img" style={{backgroundSize: 'cover',  backgroundImage: "url('" + image.url_570xN + "')"}} />
+                <div className="img" style={{backgroundSize: 'cover', backgroundPosition: 'center center',  backgroundImage: "url('" + image.url_570xN + "')"}} />
             </div>
             {details}
 
