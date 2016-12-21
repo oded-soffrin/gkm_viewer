@@ -10,6 +10,8 @@ const Admin = (props) => {
       {' | '}
       <Link to="/admin/next-listings">Next Listings</Link>
       {' | '}
+      <Link to="/admin/products-container">Products Container</Link>
+      {' | '}
       <Link to="/admin/ig">IG</Link>
       {' | '}
       <Link to="/about">About</Link>

@@ -14,6 +14,28 @@ const products = (state, action) => {
   }
 }
 
+const byCollection = (state = {}, action) => {
+  switch (action.type) {
+      case RECEIVE_PRODUCTS:
+        return {
+          ...state,
+          ...action.products.reduce((obj, product) => {
+              if (product.category_path && product.category_path.length > 1 && product.category_path[0] == 'Jewelry') {
+                let cat = product.category_path[1];
+                obj[cat] = obj[cat] || [];
+                obj[cat].push(product)
+              } else {
+                console.warn('ByCollection: skipping', product.title, product.category_path)
+              }
+              return obj;
+          }, {})
+        }
+    default: {
+      return state
+    }
+  }
+}
+
 const byId = (state = {}, action) => {
   switch (action.type) {
     case RECEIVE_PRODUCTS:
@@ -67,7 +89,7 @@ const categories = (state = {}, action) => {
   }
 }
 
-const category = (state = ['ALL'], action) => {
+const category = (state = ['Jewelry'], action) => {
   switch (action.type) {
     case ETSY_CATEGORY_STEP: {
       if (action.stepIdx == 1) {
@@ -101,6 +123,7 @@ const itemSelected = (state = {}, action) => {
 
 export default combineReducers({
   byId,
+  byCollection,
   visibleIds,
   categories,
   category,
@@ -109,6 +132,10 @@ export default combineReducers({
 
 export const getProduct = (state, id) => {
   return state.byId[id]
+}
+
+export const getProductsByCollection = (state, collectionId) => {
+  return state.byCollection[collectionId];
 }
 
 

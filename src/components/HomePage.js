@@ -16,10 +16,17 @@ class HomePage extends React.Component {
         <div className="home-page">
 
           <Header />
-          <img width="100%" src={require('../images/first.jpg')}/>
+          <img width="100%" src={require("../images/first.jpg")}/>
+          <Link className="button" to="/collection">Let's shop!</Link>
+          <Link className="button" to="/about">Behind the scenes</Link>
+          <div className="text-info-section">
+            <div>We have made</div>
+            <div>1,345</div>
+            <div>smiles appear</div>
+            <div>around the world</div>
+            <div>(;</div>
+          </div>
 
-          <Link className="button" to="/about">Who are we?</Link>
-          <Link className="button" to="/shop">Let's shop!</Link>
           <SearchBar products={this.props.products} />
 
         </div>

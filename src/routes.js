@@ -11,20 +11,28 @@ import IgPage from './containers/InstagramPage'; // eslint-disable-line import/n
 import AboutPage from './components/AboutPage.js';
 import NotFoundPage from './components/NotFoundPage.js';
 import ProductPageContainer from "./containers/ProductPageContainer.js";
+import ProductsContainer from "./containers/ProductsContainer.js"
+import CollectionContainer from "./containers/CollectionContainer.js"
 import ShopPage from "./components/Shop/ShopPage.js";
 import ShoppingCartContainer from "./containers/DemoShopingCartContainer"
+import CollectionsPage from "./components/Shop/CollectionsPage.js"
 
 export default (
     <Route path="/" component={App}>
         <IndexRoute component={HomePage}/>
         <Route path="about" component={AboutPage}/>
         <Route path="shop" component={ShopPage}/>
-            <Route path="shop/cartExample" component={ShoppingCartContainer} />
-            <Route path="shop/:id" component={ProductPageContainer} />
+        <Route path="shop/cartExample" component={ShoppingCartContainer} />
+        <Route path="shop/:id" component={ProductPageContainer} />
+
+        <Route path="collection" component={CollectionsPage} />
+        <Route path="collection/:id" component={CollectionContainer} />
+
 
         <Route path="/admin" component={Admin}>
                 <IndexRoute component={AdminHomePage}/>
                 <Route path="gkm" component={GKMHomePage}/>
+                <Route path="products-container" component={ProductsContainer}/>
                 <Route path="next-listings" component={NextListingsPage}/>
                 <Route path="ig" component={IgPage}/>
                 <Route path="about" component={AboutPage}/>

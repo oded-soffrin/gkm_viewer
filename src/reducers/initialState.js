@@ -3,7 +3,6 @@ export default {
     listings: [],
     listingIdToIdx: {},
     categories: {},
-    category: ['ALL'],
     itemSelected: {idx: -1, cnt: 0}
   },
   ig: {

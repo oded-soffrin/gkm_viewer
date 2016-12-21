@@ -8,8 +8,9 @@ const AdminHomePage = () => {
 
       <h2>HomePage Menu</h2>
       <ol>
-        <li><Link to="/admin/gkm">GKM</Link></li>
+        <li><Link to="/admin/gkm">Twitter</Link></li>
         <li><Link to="/admin/next-listings">Next Listings</Link></li>
+        <li><Link to="/admin/products-container">Products Container</Link></li>
         <li><Link to="/admin/ig">IG</Link></li>
         <li>Review the <Link to="fuel-savings">demo app</Link></li>
       </ol>
