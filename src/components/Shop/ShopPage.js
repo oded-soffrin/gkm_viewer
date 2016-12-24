@@ -4,24 +4,7 @@ import _ from 'lodash';
 import ShopListing from './ShopListing';
 import Header from '../Header';
 import ProductsHoC from "../../containers/ProductsHoC"
-
-
-class Category extends React.Component {
-  constructor(props, context) {
-    super(props, context);
-  }
-
-  render () {
-    return (
-        <div className="category" key={this.props.title} onClick={this.props.onClick}>
-          <div className="cat-title">{this.props.title}</div>
-          <div className="cat-body" style={{backgroundSize: 'cover', backgroundPosition: 'center center',  backgroundImage: "url('" + this.props.img.url_570xN + "')"}} >
-            <div className="cat-description">Some Description</div>
-          </div>
-        </div>
-    )
-  }
-}
+import SectionButton from '../SectionButton'
 
 class ShopPage extends React.Component {
 
@@ -66,7 +49,6 @@ class ShopPage extends React.Component {
       }
     } else {
       //some categories for you
-      console.log('current_cats', current_cats);
       if (current_cats.length > 0 && current_cats[0] != 'ALL') { //selected
         step = 2;
         cats = this.props.categories[current_cats[0]];
@@ -77,10 +59,10 @@ class ShopPage extends React.Component {
       title = 'Categories';
 
       catsList = _.map(cats, (nextCategories,cat) => {
-
-        console.log('cats', cat);
         let rand = Math.floor(Math.random() * 100);
-        return <Category img={this.props.products[rand].images[0]} title={cat} onClick={() => {this.props.categorySelect(cat, step);}} />;
+
+        return <SectionButton type="section" img={this.props.products[rand].images[0].url_570xN} description={''} title={cat} onClick={() => {this.props.categorySelect(cat, step);}} />;
+
       });
     }
 

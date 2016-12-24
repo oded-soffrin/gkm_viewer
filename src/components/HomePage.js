@@ -1,11 +1,9 @@
 import React, {PropTypes} from 'react';
-import {Link} from 'react-router';
+import {Link, browserHistory} from 'react-router';
 import Header from './Header';
 import ProductsHoC from "../containers/ProductsHoC"
 import SectionButton from './SectionButton'
-import {browserHistory } from 'react-router';
-
-
+import _ from 'lodash'
 
 class HomePage extends React.Component {
 
@@ -17,7 +15,6 @@ class HomePage extends React.Component {
     if (this.props.products.length == 0) {
       return <div>loading</div>;
     }
-    let rand = Math.floor(Math.random() * 100);
 
     let sectionButtonsTexts = [
       {
@@ -37,34 +34,60 @@ class HomePage extends React.Component {
 
     let sectionButtons = _.map(sectionButtonsTexts, (s) => {
       let rand = Math.floor(Math.random() * 100);
-      return (<SectionButton type="home" img={this.props.products[rand].images[0].url_570xN} title={s.title} description={s.description} onClick={() => {browserHistory.push('/test');}} />)
+      return (<SectionButton type="home" img={this.props.products[rand].images[0].url_570xN} title={s.title} description={s.description} onClick={() => {browserHistory.push("/test");}} />)
     })
 
     return (
         <div className="home-page">
+          <div className="home-page-main">
 
-          <Header />
-          <img width="100%" src={require("../images/first.jpg")}/>
-          <Link className="button" to="/collection">Let's shop!</Link>
+            <Header />
+            <img width="100%" src={require("../images/first.jpg")}/>
+            <Link className="button" to="/collection">Let's shop!</Link>
 
-          <div className="text-info-section">
-            <div>We have made</div>
-            <div>1,345</div>
-            <div>smiles appear</div>
-            <div>around the world</div>
-            <div>(;</div>
+            <div className="text-info-section">
+              <div className="text-big">We have made</div>
+              <div className="text-bigger">1,345</div>
+              <div className="text-big">smiles appear</div>
+              <div className="text-big">around the world</div>
+              <div className="text-bigger">(;</div>
+            </div>
+
+            <Link className="button" to="/about">Behind the scenes</Link>
+
+            {sectionButtons}
+
+            <div className="bullet-list">
+              <div className="bullet-item">
+                <i className="fa fa-info-circle"/> <span className="bullet-text"> Shipping & Payments </span>
+              </div>
+              <div className="bullet-item"><i className="fa fa-gear fa-spin"/> <span className="bullet-text"> About us </span></div>
+              <div className="bullet-item"><i className="fa fa-comment"/> <span className="bullet-text"> Let's connect </span></div>
+            </div>
+
+            <div className="socials">
+              <a className="icontain" href="https://www.instagram.com/urban_raven/" target="_new" ><i className="fa fa-instagram"/></a>
+              <a className="icontain" href="https://twitter.com/urbanravenshop/" target="_new" ><i className="fa fa-twitter"/></a>
+              <a className="icontain" href="https://www.facebook.com/urbanravenjewelry/" target="_new" ><i className="fa fa-facebook"/></a>
+            </div>
           </div>
 
-          <Link className="button" to="/about">Behind the scenes</Link>
+          <div className="home-page-footer">
+            <div className="footer-title">
+              <div className="text-normal">You have reached</div>
+              <div className="text-big">this far?</div>
+              <div className="text-normal">than, you have to see this</div>
+            </div>
 
-          {sectionButtons}
+            <div className="footer-button">Our Secret Back Door</div>
+            <div className="footer-line text-small">Urban Raven LTD. | Passion for life, love & art.</div>
 
-          <div className="bullet-list">
-            <div><i className="fa fa-info-circle"/> <span className='bullet-text'> Shipping & Payments </span></div>
-            <div><i className="fa fa-gear fa-spin"/> <span style={{paddingLeft: '10px'}}> About us </span></div>
-            <div><i className="fa fa-comment"/> <span style={{paddingLeft: '10px'}}> Let's connect </span></div>
+
           </div>
         </div>
+
+
+
     );
   }
 }

@@ -2,9 +2,14 @@
 $vin-blue: #5bb7db;
 $vin-green: #60b044;
 $vin-red: #ff0000;
-$yellow: lightgoldenrodyellow;
+$yellow: #dcd270;
 $black: #000;
 $cat-font-size: 22px;
+
+
+@mixin dark-shadow {
+  box-shadow: 3px 3px 10px #333;
+}
 
 /* Styles */
 body {
@@ -48,33 +53,118 @@ h2 {
 }
 
 .home-page {
-  .button {
-    text-align: center;
-    height: 55px;
-    line-height: 55px;
-    text-decoration: none;
-    border: 1px solid $black;
-    box-sizing: border-box;
-    background: $yellow;
-    color: $black;
-    display: inline-block;
-    width: 100%;
+
+  .text-small {
+    font-size: 12px;
+  }
+  .text-normal {
+
+  }
+  .text-big {
+    font-size: 24px;
+    line-height: 1.2em;
   }
 
-  .text-info-section {
-    text-align: center;
+  .text-bigger {
+    font-size: 30px;
+    line-height: 1.2em;
+
   }
 
-  .bullet-list {
-    padding: 20px;
+  .home-page-main {
 
-    .bullet-text {
-      padding-left: 10px;
+    padding: 0 10px;
+
+    .button {
+      text-align: center;
+      height: 55px;
+      line-height: 55px;
+      text-decoration: none;
+      border: 1px solid $black;
+      box-sizing: border-box;
+      background: $yellow;
+      color: $black;
+      display: inline-block;
+      width: 100%;
+    }
+
+    .text-info-section {
+      margin: 20px 0;
+      text-align: center;
+    }
+
+    .bullet-list {
+      margin-top: 20px;
+
+      .bullet-item {
+
+        border-bottom: 2px solid black;
+        padding: 20px;
+
+        i {
+          font-size: 20px;
+          color: $yellow;
+        }
+        .bullet-text {
+          padding-left: 10px;
+        }
+
+        &:last-child {
+          border: none;
+        }
+      }
+    }
+
+    .socials {
+      text-align: center;
+      margin: 20px 0 50px 0;
+
+      .icontain {
+
+        margin-left: 10px;
+        margin-right: 10px;
+        width: 40px;
+        height: 40px;
+        background: black;
+        border-radius: 30px;
+        display: inline-block;
+
+        i {
+          margin-top: 8px;
+          color: white;
+          font-size: 25px;
+        }
+      }
+
     }
   }
+
+  .home-page-footer {
+    background: $yellow;
+    text-align: center;
+    padding: 20px;
+
+    .footer-title {
+      text-align: left;
+      margin-bottom: 20px;
+    }
+
+    .footer-button{
+      margin: 0 auto;
+      display: inline-block;
+      padding: 15px;
+      width: 70%;
+
+      @include dark-shadow;
+    }
+
+    .footer-line {
+      margin-top: 20px;
+    }
+
+
+  }
 }
-
-
 
 .listing-details {
   position: absolute;
@@ -176,6 +266,7 @@ h2 {
       background-color: rgba(0, 0, 0, 0.3);
       padding: 10px;
       color: white;
+      width: 60%;
     }
   }
 
@@ -188,9 +279,6 @@ h2 {
   }
 
   &.section {
-
-
-
     .button-body {
       border-top: 0;
       height:120px;
@@ -225,7 +313,7 @@ h2 {
       right: 10px;
       width: 70%;
       background: rgba(255,255,255,0.6);
-      box-shadow: 7px 7px 15px #000;
+      @include dark-shadow;
     }
 
   }
@@ -306,7 +394,7 @@ h2 {
 
 @media only screen and (max-device-width: 480px) {
   body {
-    padding: 0px 10px;
+    padding: 0;
   }
 
   .etsy-fu-page {
