@@ -5,7 +5,7 @@ $vin-red: #ff0000;
 $yellow: #dcd270;
 $black: #000;
 $cat-font-size: 22px;
-
+$text-color: #4d4d4d;
 
 @mixin dark-shadow {
   box-shadow: 3px 3px 10px #333;
@@ -15,7 +15,7 @@ $cat-font-size: 22px;
 body {
   font: 16px 'Helvetica Neue', Helvetica, Arial, sans-serif;
   line-height: 1.4em;
-  color: #4d4d4d;
+  color: $text-color;
   padding: 20px 100px;
 
   margin: 0 auto;
@@ -33,6 +33,9 @@ h2 {
   color: $vin-blue;
 }
 
+a {
+  text-decoration: none;
+}
 
 .header{
   .header-element {
@@ -99,6 +102,9 @@ h2 {
 
         border-bottom: 2px solid black;
         padding: 20px;
+         a {
+           color: $text-color;
+         }
 
         i {
           font-size: 20px;
@@ -396,7 +402,7 @@ h2 {
     padding: 0;
   }
 
-  .shop-page, .product-page {
+  .shop-page, .product-page, .about-page {
     padding: 0 10px;
   }
 
