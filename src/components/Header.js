@@ -1,7 +1,10 @@
-import React from 'react';
+import React, {PropTypes} from 'react';
 import {Link} from 'react-router';
 import '../styles/header.scss';
 import CartContainer from '../containers/CartContainer'
+import SearchBar from './SearchBar';
+import ProductsHoC from "../containers/ProductsHoC"
+
 let Menu = require('react-burger-menu').stack;
 
 class Header extends  React.Component {
@@ -15,6 +18,8 @@ class Header extends  React.Component {
             <a id="home" className="menu-item" href="/">Home</a>
             <a id="about" className="menu-item" href="/about">About</a>
             <a id="contact" className="menu-item" href="/contact">Contact</a>
+            <SearchBar products={this.props.products} />
+
             <CartContainer />
 
           </Menu>
@@ -26,4 +31,9 @@ class Header extends  React.Component {
   }
 }
 
-export default Header;
+
+Header.propTypes = {
+  products: PropTypes.array.isRequired
+};
+
+export default ProductsHoC(Header);
