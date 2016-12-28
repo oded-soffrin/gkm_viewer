@@ -3,6 +3,10 @@ import React, {PropTypes} from 'react';
 import _ from 'lodash';
 import ShopListing from './ShopListing';
 import Header from '../Header';
+import Headroom from 'react-headroom'
+import {browserHistory } from 'react-router'
+import '../../styles/headroom.scss'
+
 
 class CollectionPage extends React.Component {
 
@@ -11,6 +15,10 @@ class CollectionPage extends React.Component {
   }
 
   render () {
+
+    let catsList = _.map(this.props.categories['Jewelry'], (nextCategories,cat) => {
+      return <div className='filterButton' onClick={() => {browserHistory.push('/collection/' + cat);}}> {cat} </div>;
+    });
     let itemsList = _.map(this.props.products, (l, idx) => {
       let selectedProps = (this.props.itemSelected.idx == idx) ? {selected: true, selectedCnt: this.props.itemSelected.cnt} : {selected: false}
       return (<ShopListing
@@ -26,9 +34,17 @@ class CollectionPage extends React.Component {
         <div className="shop-page">
           <Header />
 
+
           <h2>{this.props.collectionId}</h2>
 
           {itemsList}
+
+          <Headroom disableInlineStyles={true}>
+            <h2>Filter By:</h2>
+            {catsList}
+          </Headroom>
+
+
         </div>
     );
   }
@@ -36,6 +52,7 @@ class CollectionPage extends React.Component {
 
 CollectionPage.propTypes = {
   products: PropTypes.array.isRequired,
+  categories: PropTypes.object.isRequired,
   collectionId: PropTypes.string.isRequired,
   itemSelected: PropTypes.object.isRequired,
   galleryItemClick: PropTypes.func.isRequired

@@ -5,13 +5,14 @@ import { getProductsByCollection } from '../reducers/products'
 import { galleryItemClick} from '../actions'
 
 
-const CollectionContainerInner = ({collectionId, products, itemSelected, galleryItemClick}) => {
+const CollectionContainerInner = ({collectionId, products, itemSelected, galleryItemClick, categories}) => {
   return (
       <CollectionPage
           collectionId={collectionId}
           products={products}
           galleryItemClick={galleryItemClick}
           itemSelected={itemSelected}
+          categories={categories}
       />
   );
 };
@@ -28,9 +29,13 @@ let mapStateToProps = (state, ownProps) => {
   return {
     collectionId,
     products: getProductsByCollection(state.products, collectionId),
+    categories: state.products.categories,
     itemSelected: state.products.itemSelected
   };
 }
+
+
+
 
 
 export default connect(
