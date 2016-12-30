@@ -24,7 +24,7 @@ class EtsyListing extends React.Component {
     let twitterTitle = this.state.twitterTitle;
     $.ajax({
       type: "PUT",
-      url: API_URL + '/listing/' + listing.id,
+      url: API_URL + '/listing/' + listing.listing_id,
       contentType: 'application/json',
       data: JSON.stringify({twitterTitle}),
       success: (r) => {
