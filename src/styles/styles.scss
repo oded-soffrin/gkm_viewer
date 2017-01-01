@@ -31,7 +31,7 @@ td {
 }
 
 h2 {
-  color: $vin-blue;
+  color: $black;
 }
 
 a {
@@ -56,23 +56,72 @@ a {
   }
 }
 
+.footer {
+  text-align: center;
+  .socials {
+    margin: 20px 0;
+    .icontain {
+      margin-left: 10px;
+      margin-right: 10px;
+      width: 40px;
+      height: 40px;
+      background: black;
+      border-radius: 30px;
+      display: inline-block;
+
+      i {
+        margin-top: 8px;
+        color: $yellow;
+        font-size: 25px;
+      }
+    }
+  }
+
+  .background-section {
+    background: $yellow;
+    padding: 20px;
+
+    .footer-title {
+      text-align: left;
+      margin-bottom: 20px;
+    }
+
+    .footer-button{
+      margin: 0 auto;
+      display: inline-block;
+      padding: 15px;
+      width: 70%;
+
+      @include dark-shadow;
+    }
+
+    .footer-line {
+      margin-top: 20px;
+    }
+
+
+  }
+}
+
+.text-small {
+  font-size: 12px;
+}
+.text-normal {
+
+}
+.text-big {
+  font-size: 24px;
+  line-height: 1.2em;
+}
+
+.text-bigger {
+  font-size: 30px;
+  line-height: 1.2em;
+
+}
+
+
 .home-page {
-  .text-small {
-    font-size: 12px;
-  }
-  .text-normal {
-
-  }
-  .text-big {
-    font-size: 24px;
-    line-height: 1.2em;
-  }
-
-  .text-bigger {
-    font-size: 30px;
-    line-height: 1.2em;
-
-  }
 
   .home-page-main {
 
@@ -89,6 +138,7 @@ a {
       color: $black;
       display: inline-block;
       width: 100%;
+      font-size: $cat-font-size;
     }
 
     .text-info-section {
@@ -120,55 +170,17 @@ a {
         }
       }
     }
-
-    .socials {
-      text-align: center;
-      margin: 20px 0 50px 0;
-
-      .icontain {
-
-        margin-left: 10px;
-        margin-right: 10px;
-        width: 40px;
-        height: 40px;
-        background: black;
-        border-radius: 30px;
-        display: inline-block;
-
-        i {
-          margin-top: 8px;
-          color: white;
-          font-size: 25px;
-        }
-      }
-
-    }
   }
 
-  .home-page-footer {
-    background: $yellow;
-    text-align: center;
-    padding: 20px;
-
-    .footer-title {
-      text-align: left;
-      margin-bottom: 20px;
+  .footer {
+    .socials {
+      margin: 20px 0 50px 0;
+      .icontain {
+        i {
+          color: white;
+        }
+      }
     }
-
-    .footer-button{
-      margin: 0 auto;
-      display: inline-block;
-      padding: 15px;
-      width: 70%;
-
-      @include dark-shadow;
-    }
-
-    .footer-line {
-      margin-top: 20px;
-    }
-
-
   }
 }
 

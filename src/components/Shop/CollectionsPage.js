@@ -3,9 +3,9 @@ import React, {PropTypes} from 'react';
 import _ from 'lodash';
 import Header from '../Header';
 import ProductsHoC from "../../containers/ProductsHoC"
-import {browserHistory } from 'react-router';
+import {browserHistory } from 'react-router'
 import SectionButton from '../SectionButton'
-
+import Footer from '../Footer'
 
 class CollectionsPage extends React.Component {
 
@@ -22,11 +22,15 @@ class CollectionsPage extends React.Component {
 
 
     return (
-        <div className="shop-page">
-          <Header />
-          <h2>Collections</h2>
+        <div>
+          <div className="shop-page">
+            <Header />
+            <h2>Collections</h2>
 
-          {catsList}
+            {catsList}
+
+          </div>
+          <Footer />
         </div>
     );
   }

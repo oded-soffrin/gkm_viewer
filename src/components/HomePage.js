@@ -3,7 +3,9 @@ import {Link, browserHistory} from 'react-router';
 import Header from './Header';
 import ProductsHoC from "../containers/ProductsHoC"
 import SectionButton from './SectionButton'
+import Footer from './Footer'
 import _ from 'lodash'
+
 
 class HomePage extends React.Component {
 
@@ -71,26 +73,11 @@ class HomePage extends React.Component {
               <div className="bullet-item"><i className="fa fa-gear fa-spin"/> <span className="bullet-text"><Link to="/about"> About us</Link></span></div>
               <div className="bullet-item"><i className="fa fa-comment"/> <span className="bullet-text"> Let's connect </span></div>
             </div>
-
-            <div className="socials">
-              <a className="icontain" href="https://www.instagram.com/urban_raven/" target="_new" ><i className="fa fa-instagram"/></a>
-              <a className="icontain" href="https://twitter.com/urbanravenshop/" target="_new" ><i className="fa fa-twitter"/></a>
-              <a className="icontain" href="https://www.facebook.com/urbanravenjewelry/" target="_new" ><i className="fa fa-facebook"/></a>
-            </div>
           </div>
 
-          <div className="home-page-footer">
-            <div className="footer-title">
-              <div className="text-normal">You have reached</div>
-              <div className="text-big">this far?</div>
-              <div className="text-normal">than, you have to see this</div>
-            </div>
-
-            <div className="footer-button">Our Secret Back Door</div>
-            <div className="footer-line text-small">Urban Raven LTD. | Passion for life, love & art.</div>
+          <Footer type="big"/>
 
 
-          </div>
         </div>
 
 
