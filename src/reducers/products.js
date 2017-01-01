@@ -43,7 +43,7 @@ const byId = (state = {}, action) => {
         ...state,
         ...action.products.reduce((obj, product) => {
           product.price = parseInt(product.price)
-          obj[product.id] = product
+          obj[product.listing_id] = product
           return obj
         }, {})
       }
@@ -63,7 +63,7 @@ const byId = (state = {}, action) => {
 const visibleIds = (state = [], action) => {
   switch (action.type) {
     case RECEIVE_PRODUCTS:
-      return action.products.map(product => product.id)
+      return action.products.map(product => product.listing_id)
     default:
       return state
   }
