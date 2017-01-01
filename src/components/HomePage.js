@@ -11,10 +11,17 @@ class HomePage extends React.Component {
     super(props, context);
   }
 
-  render() {
+  getRandomImage() {
     if (this.props.products.length == 0) {
-      return <div>loading</div>;
+      return require("../images/first.jpg");
+    } else {
+      let rand = Math.floor(Math.random() * 100);
+      return this.props.products[rand].images[0].url_570xN;
     }
+  }
+
+  render() {
+
 
     let sectionButtonsTexts = [
       {
@@ -32,9 +39,9 @@ class HomePage extends React.Component {
 
     ];
 
+
     let sectionButtons = _.map(sectionButtonsTexts, (s) => {
-      let rand = Math.floor(Math.random() * 100);
-      return (<SectionButton type="home" img={this.props.products[rand].images[0].url_570xN} title={s.title} description={s.description} onClick={() => {browserHistory.push("/test");}} />)
+      return (<SectionButton type="home" img={this.getRandomImage()} title={s.title} description={s.description} onClick={() => {browserHistory.push("/test");}} />)
     })
 
     return (
