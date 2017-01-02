@@ -26,7 +26,7 @@ class ShopListing extends React.Component {
              {e.title}
            </div>
            <div className="more">
-             <div className="button" onClick={() => this.onMore(e)}>I WANT IT!</div>
+             <div className="button" onClick={() => this.onMore(e)}>Tell Me More!</div>
            </div>
          </div>
      );

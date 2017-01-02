@@ -17,7 +17,8 @@ class CollectionPage extends React.Component {
   render () {
 
     let catsList = _.map(this.props.categories['Jewelry'], (nextCategories,cat) => {
-      return <div className='filterButton' onClick={() => {browserHistory.push('/collection/' + cat);}}> {cat} </div>;
+      let selected = ((this.props.collectionId == cat) ? 'selected' : '');
+      return <div className={'filter-button ' + selected} onClick={() => {browserHistory.push('/collection/' + cat);}}> {cat} </div>;
     });
     let itemsList = _.map(this.props.products, (l, idx) => {
       let selectedProps = (this.props.itemSelected.idx == idx) ? {selected: true, selectedCnt: this.props.itemSelected.cnt} : {selected: false}
@@ -40,7 +41,7 @@ class CollectionPage extends React.Component {
           {itemsList}
 
           <Headroom disableInlineStyles={true}>
-            <h2>Filter By:</h2>
+            <h3>Filter by:</h3>
             {catsList}
           </Headroom>
 

@@ -30,9 +30,15 @@ td {
   padding: 12px;
 }
 
-h2 {
+h2, h3, h4 {
   color: $black;
 }
+
+h4 {
+  margin: 10px 20px;
+}
+
+
 
 a {
   text-decoration: none;
@@ -251,7 +257,7 @@ a {
         margin: 10px;
         border: 1px solid $black;
         box-sizing: border-box;
-        background: orangered;
+        background: $yellow;
       }
     }
 
@@ -260,7 +266,8 @@ a {
 .section-button {
 
   background: lightblue;
-  margin-top: 20px;
+  margin-top: 10px;
+  margin-bottom: 10px;
 
   vertical-align: top;
   text-align: center;
@@ -405,10 +412,25 @@ a {
     margin: 10px;
     border: 1px solid $black;
     box-sizing: border-box;
-    background: orangered;
+    background: $yellow;
   }
 }
 
+.filter-button {
+  width: 50%;
+  display: inline-block;
+
+  display: inline-block;
+  width: calc(50% - 22px);
+  border: 1px solid black;
+  margin: 5px;
+  padding: 5px;
+  text-align: center;
+  &.selected {
+    background: grey;
+    color: white;
+  }
+}
 
 @media only screen and (max-device-width: 480px) {
   body {
