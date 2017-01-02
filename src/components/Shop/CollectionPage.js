@@ -41,7 +41,7 @@ class CollectionPage extends React.Component {
           {itemsList}
 
           <Headroom disableInlineStyles={true}>
-            <h3>Filter by:</h3>
+            <h4>Filter by:</h4>
             {catsList}
           </Headroom>
 

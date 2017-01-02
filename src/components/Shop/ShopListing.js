@@ -7,7 +7,7 @@ class ShopListing extends React.Component {
   }
 
   onMore (listing) {
-    browserHistory.push('/shop/' + listing.id);
+    browserHistory.push('/shop/' + listing.listing_id);
 
   }
 
