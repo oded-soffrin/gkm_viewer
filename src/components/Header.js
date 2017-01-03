@@ -4,7 +4,9 @@ import '../styles/header.scss';
 import CartContainer from '../containers/CartContainer'
 import SearchBar from './SearchBar';
 import ProductsHoC from "../containers/ProductsHoC"
+import Radium from 'radium';
 
+let RadiumLink = Radium(Link);
 let Menu = require('react-burger-menu').stack;
 
 class Header extends  React.Component {
@@ -15,10 +17,13 @@ class Header extends  React.Component {
     return (
         <div className="header">
           <Menu right>
-            <a id="home" className="menu-item" href="/">Home</a>
+            <SearchBar products={this.props.products} />
+
+            <RadiumLink className="home menu-item" to="/">Home</RadiumLink>
             <a id="about" className="menu-item" href="/about">About</a>
             <a id="contact" className="menu-item" href="/contact">Contact</a>
-            <SearchBar products={this.props.products} />
+
+
 
             <CartContainer />
 

@@ -23,5 +23,12 @@ browserSync({
     'src/*.html'
   ],
 
-  middleware: [historyApiFallback()]
+  middleware: [function(req, res, next) {
+    if (req.url.startsWith('/admin/')) {
+      req.url = '/admin.html';
+    }
+    next();
+  },
+    historyApiFallback()
+  ]
 });

@@ -39,7 +39,8 @@ class SearchBar extends React.Component {
     const inputLength = inputValue.length;
 
     return inputLength === 0 ? [] : this.props.products.filter((possibleResult) => {
-          return (possibleResult.title.toLowerCase().match(inputValue) != null);
+        console.log("huh?", possibleResult);
+          return ((possibleResult.title || '').toLowerCase().match(inputValue) != null);
         }
     );
   }
@@ -78,7 +79,7 @@ class SearchBar extends React.Component {
 
     // Autosuggest will pass through all these props to the input element.
     const inputProps = {
-      placeholder: 'Search for your next piece...',
+      placeholder: 'Search your next piece...',
       value,
       onChange: this.onChange
     };
