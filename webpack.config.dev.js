@@ -69,5 +69,14 @@ export default {
       {test: /\.json$/, loader: "json"}
     ]
   },
+  externals: {
+    "react": "React",
+    jsdom: 'window',
+    cheerio: 'window',
+    "react-dom": 'ReactDOM',
+    'react/lib/ExecutionEnvironment': true,
+    'react/lib/ReactContext': true,
+    'react/addons': true,
+  },
   postcss: ()=> [autoprefixer]
 };
