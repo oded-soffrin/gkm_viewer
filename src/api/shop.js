@@ -3,6 +3,7 @@
  */
 /* import _products from './products.json' */
 import {API_URL} from '../constants/consts';
+import fetch from 'isomorphic-fetch';
 
 const TIMEOUT = 100
 
