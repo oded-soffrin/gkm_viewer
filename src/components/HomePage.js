@@ -70,7 +70,7 @@ class HomePage extends React.Component {
               <div className="bullet-item">
                 <i className="fa fa-info-circle"/> <span className="bullet-text"> Shipping & Payments </span>
               </div>
-              <div className="bullet-item"><i className="fa fa-gear fa-spin"/> <span className="bullet-text"><Link to="/about"> About us</Link></span></div>
+              <div className="bullet-item"><i className="fa fa-users"/> <span className="bullet-text"><Link to="/about"> About us</Link></span></div>
               <div className="bullet-item"><i className="fa fa-comment"/> <span className="bullet-text"> Let's connect </span></div>
             </div>
           </div>
