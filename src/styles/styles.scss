@@ -246,14 +246,14 @@ a {
       .listing-details {
 
         background: #eee;
-        .details-appear {
-          height: 0px;
-        }
-
-        .details-appear.example-appear-active {
-          height: 110px;
-          transition: height .5s ease-in;
-        }
+        //.details-appear {
+        //  height: 0px;
+        //}
+        //
+        //.details-appear.example-appear-active {
+        //  height: 110px;
+        //  transition: height .5s ease-in;
+        //}
       }
     }
   }

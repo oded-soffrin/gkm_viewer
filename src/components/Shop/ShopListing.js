@@ -1,6 +1,6 @@
 import React, {PropTypes} from 'react';
 import {browserHistory } from 'react-router';
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
+//import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
 
 class ShopListing extends React.Component {
   constructor(props, context) {
@@ -33,14 +33,9 @@ class ShopListing extends React.Component {
      );
 
       details = (
-          <ReactCSSTransitionGroup
-              transitionName="details"
-              transitionAppear={true}
-              transitionAppearTimeout={100}
-              transitionEnter={false}
-              transitionLeave={false}>
+
             {details_inner}
-          </ReactCSSTransitionGroup>
+
       );
     }
 
