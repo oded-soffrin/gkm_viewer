@@ -108,8 +108,8 @@ const category = (state = ['Jewelry'], action) => {
 const itemSelected = (state = {}, action) => {
   switch (action.type) {
     case GALLERY_ITEM_CLICK: {
-      let newState = {idx: action.idx}
-      if (state.idx == action.idx) {
+      let newState = {listingId: action.listingId}
+      if (state.listingId == action.listingId) {
         newState.cnt = state.cnt + 1
       } else {
         newState.cnt = 1

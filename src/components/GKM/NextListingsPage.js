@@ -1,5 +1,4 @@
 import React, {PropTypes} from 'react';
-import $ from 'jquery';
 import '../../styles/gkm-home-page.scss';
 import {API_URL} from '../../constants/consts';
 import EtsyListing from '../Etsy/EtsyListing';

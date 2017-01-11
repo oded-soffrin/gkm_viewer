@@ -35,7 +35,7 @@ class ShopPage extends React.Component {
         });
 
         if (isInCategory) {
-          let selectedProps = (this.props.itemSelected.idx == idx) ? {selected: true, selectedCnt: this.props.itemSelected.cnt} : {selected: false}
+          let selectedProps = (this.props.itemSelected.listingId == l.listing_id) ? {selected: true, selectedCnt: this.props.itemSelected.cnt} : {selected: false}
 
           catsList.push(<ShopListing
               idx={idx}

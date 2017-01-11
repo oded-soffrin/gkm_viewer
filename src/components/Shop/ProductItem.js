@@ -1,10 +1,15 @@
 import React, { PropTypes } from 'react'
-import Product from './Product'
 import _ from 'lodash'
+import '../../styles/admin-styles.scss';
+import {API_URL} from '../../constants/consts';
 
 class ProductItem extends React.Component {
   constructor(props, context) {
     super(props, context);
+    this.state = {
+      debug: false,
+      name: props.product.name
+    }
   }
 
   productTable () {
@@ -20,7 +25,7 @@ class ProductItem extends React.Component {
       vals.push(<td>{JSON.stringify(v, null, 2).slice(0, 200)}</td>);
     });
     return (
-        <table>
+        <table className={"product-table " + (this.state.debug ? 'show' : 'hide')}>
           <thead>
             <tr>
               {keys}
@@ -35,27 +40,70 @@ class ProductItem extends React.Component {
     );
   }
 
+  updateDb () {
+
+  }
+
+  updateInputValue(fld, evt) {
+    let updateObject = {};
+    updateObject[fld] = evt.target.value;
+
+    $.ajax({
+      type: "PUT",
+      url: API_URL + '/listing/' + this.props.product.listing_id,
+      contentType: 'application/json',
+      data: JSON.stringify(updateObject),
+      success: (r) => {
+        console.log(r);
+      }
+    });
+
+    this.setState(updateObject);
+  }
+
   render () {
     //console.log('p', this.props.product);
 
     //Still this button to shop
 
+    let product = this.props.product;
+    let images = product.images;
+
     return (
         <div style={{ marginBottom: 20 }}>
 
           {this.productTable()}
-          <Product
-              images={this.props.product.images}
-              title={this.props.product.title}
-              price={this.props.product.price} />
+          <div>
+            {images ? <img src={images[0].url_75x75} /> : ''}
+          </div>
+          <div>
+            <b>{product.title}</b>
+          </div>
+          <div>
+            {product.description.slice(0,300) + '...'}
+          </div>
+          <div>
+            ${product.price} x {product.quantity}
+          </div>
+
+          <div>
+              <span>Name:</span>
+
+              <input type="text" maxLength="20" defaultValue={this.state.name} onChange={(evt) => this.updateInputValue('name', evt)} />
+
+          </div>
 
 
 
+
+          <button onClick={() => {this.setState({debug: !this.state.debug}) }} >toggle debug</button>
           <button
               onClick={this.props.onAddToCartClicked}
               disabled={this.props.product.quantity > 0 ? '' : 'disabled'}>
             {this.props.product.quantity > 0 ? 'Add to cart' : 'Sold Out'}
           </button>
+
+
         </div>
     );
   }

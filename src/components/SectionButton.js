@@ -4,7 +4,6 @@ class SectionButton extends React.Component {
   constructor(props, context) {
     super(props, context);
   }
-
   render () {
     return (
         <div className={"section-button " + this.props.type} key={this.props.title} onClick={this.props.onClick}>

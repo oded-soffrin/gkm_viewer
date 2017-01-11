@@ -1,0 +1,11 @@
+.product-table {
+
+  &.show {
+    display: block;
+  }
+
+  &.hide {
+    display: none;
+  }
+
+}

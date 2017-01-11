@@ -3,7 +3,7 @@ export default {
     listings: [],
     listingIdToIdx: {},
     categories: {},
-    itemSelected: {idx: -1, cnt: 0}
+    itemSelected: {listingId: -1, cnt: 0}
   },
   ig: {
     nonfollowers: []

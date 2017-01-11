@@ -1,5 +1,6 @@
 import React, {PropTypes} from 'react';
 import {browserHistory } from 'react-router';
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
 
 class ShopListing extends React.Component {
   constructor(props, context) {
@@ -20,16 +21,27 @@ class ShopListing extends React.Component {
     let details = '';
 
     if (this.props.selected) {
-     details = (
+     let details_inner = (
          <div className="listing-details">
            <div className="title">
-             {e.title}
+             {e.description}
            </div>
            <div className="more">
-             <div className="button" onClick={() => this.onMore(e)}>Tell Me More!</div>
+             <div className="button" onClick={() => this.onMore(e)}>See More</div>
            </div>
          </div>
      );
+
+      details = (
+          <ReactCSSTransitionGroup
+              transitionName="details"
+              transitionAppear={true}
+              transitionAppearTimeout={100}
+              transitionEnter={false}
+              transitionLeave={false}>
+            {details_inner}
+          </ReactCSSTransitionGroup>
+      );
     }
 
 
@@ -40,12 +52,13 @@ class ShopListing extends React.Component {
     }
 
     return (
-          <div className="listing gallery">
-            <div onClick={() => this.props.onSelect(this.props.idx)}>
+          <div className={"gallery listing " + (this.props.selected ? 'selected' : '')}>
+            <div onClick={() => this.props.onSelect(e.listing_id)}>
                 <div className="img" style={{backgroundSize: 'cover', backgroundPosition: 'center center',  backgroundImage: "url('" + image.url_570xN + "')"}} />
-                <div className="name">{e.title}</div>
+                <div className="name">{e.name || e.title}</div>
             </div>
-            {details}
+
+              {details}
 
           </div>);
   }

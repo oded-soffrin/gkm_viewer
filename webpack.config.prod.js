@@ -116,6 +116,8 @@ export default {
     'react/lib/ExecutionEnvironment': true,
     'react/lib/ReactContext': true,
     'react/addons': true,
+    jquery: "jQuery"
+
   },
   postcss: ()=> [autoprefixer]
 };

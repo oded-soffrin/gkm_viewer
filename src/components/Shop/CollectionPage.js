@@ -21,7 +21,7 @@ class CollectionPage extends React.Component {
       return <div className={'filter-button ' + selected} onClick={() => {browserHistory.push('/collection/' + cat);}}> {cat} </div>;
     });
     let itemsList = _.map(this.props.products, (l, idx) => {
-      let selectedProps = (this.props.itemSelected.idx == idx) ? {selected: true, selectedCnt: this.props.itemSelected.cnt} : {selected: false}
+      let selectedProps = (this.props.itemSelected.listingId == l.listing_id) ? {selected: true, selectedCnt: this.props.itemSelected.cnt} : {selected: false}
       return (<ShopListing
           idx={idx}
           key={l.url}
