@@ -21,22 +21,18 @@ class ShopListing extends React.Component {
     let details = '';
 
     if (this.props.selected) {
-     let details_inner = (
-         <div className="listing-details">
+      details = (
+         <div>
            <div className="title">
              {e.description}
            </div>
+           <div className="price">${e.price}</div>
            <div className="more">
              <div className="button" onClick={() => this.onMore(e)}>See More</div>
            </div>
          </div>
      );
 
-      details = (
-
-            {details_inner}
-
-      );
     }
 
 
@@ -53,7 +49,9 @@ class ShopListing extends React.Component {
                 <div className="name">{e.name || e.title}</div>
             </div>
 
+            <div className="listing-details">
               {details}
+            </div>
 
           </div>);
   }

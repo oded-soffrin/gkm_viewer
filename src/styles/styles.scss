@@ -236,24 +236,21 @@ a {
   &.gallery {
     display: inline-block;
 
+    .listing-details {
+      height: 0;
+    }
+
     &.selected {
       background: #eee;
       font-weight: bold;
-      padding-bottom: 110px;
+      padding-bottom: 60px;
       //transition: padding 0.2s ease;
-      transition: padding 0.5s ease-in;
+      transition: padding 0.2s ease;
 
       .listing-details {
-
+        height: 60px;
         background: #eee;
-        //.details-appear {
-        //  height: 0px;
-        //}
-        //
-        //.details-appear.example-appear-active {
-        //  height: 110px;
-        //  transition: height .5s ease-in;
-        //}
+        transition: height .2s ease;
       }
     }
   }
@@ -291,27 +288,37 @@ a {
 
 
     .title {
-      height: 100px;
+      height: 55px;
       width: 60%;
       display: inline-block;
       overflow: hidden;
       box-sizing: border-box;
+      position: absolute;
+      bottom: 1px;
+    }
+
+    .price {
+      position: absolute;
+      bottom: 12px;
+      right: 37%;
+      font-size: 15px;
     }
 
     .more {
-      height: 100px;
       width: 40%;
       display: inline-block;
       box-sizing: border-box;
       vertical-align: top;
-      padding: 10px;
+      padding: 7px 15px;
       text-align: center;
+      position: absolute;
+      bottom: 1px;
+      right: 0px;
 
       .button {
 
         text-align: center;
         padding: 10px;
-        margin: 10px;
         border: 1px solid $black;
         box-sizing: border-box;
         background: $yellow;
