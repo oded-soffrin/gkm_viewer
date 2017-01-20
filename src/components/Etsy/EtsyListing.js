@@ -1,8 +1,5 @@
 import React, {PropTypes} from 'react';
 
-import {API_URL} from '../../constants/consts';
-
-
 class EtsyListing extends React.Component {
   constructor(props, context) {
     super(props, context);
@@ -20,17 +17,9 @@ class EtsyListing extends React.Component {
   }
 
   updateDb () {
-    let listing = this.props.data;
+    let listingId = this.props.data.listing_id;
     let twitterTitle = this.state.twitterTitle;
-    $.ajax({
-      type: "PUT",
-      url: API_URL + '/listing/' + listing.listing_id,
-      contentType: 'application/json',
-      data: JSON.stringify({twitterTitle}),
-      success: (r) => {
-        console.log(r);
-      }
-    });
+    this.props.onUpdateProduct(listingId, {twitterTitle});
   }
 
   updateInputValue(evt) {
@@ -79,6 +68,7 @@ class EtsyListing extends React.Component {
 
 EtsyListing.propTypes = {
   data: PropTypes.object.isRequired,
+  onUpdateProduct: PropTypes.func.isRequired,
   type: PropTypes.string,
   etsyFu: PropTypes.bool
 };

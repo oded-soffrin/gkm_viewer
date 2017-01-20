@@ -3,15 +3,18 @@ import { connect } from 'react-redux'
 
 import ProductItem from '../components/Shop/ProductItem'
 import ProductsList from '../components/Shop/ProductsList'
+import {updateProduct} from '../actions/index'
 import ProductsHoc from './ProductsHoC'
 
-const ProductsContainer = ({ products, addToCart }) => (
+const ProductsContainer = ({ products, addToCart, updateProduct }) => (
   <ProductsList title="Products">
     {products.map(product =>
       <ProductItem
         key={product.id}
         product={product}
-        onAddToCartClicked={() => addToCart(product.id)} />
+        onAddToCartClicked={() => addToCart(product.id)}
+        onUpdateProduct={updateProduct}
+      />
     )}
   </ProductsList>
 )
@@ -24,7 +27,8 @@ ProductsContainer.propTypes = {
     images: PropTypes.array.isRequired,
     quantity: PropTypes.number.isRequired
   })).isRequired,
-  addToCart: PropTypes.func.isRequired
+  addToCart: PropTypes.func.isRequired,
+  updateProduct: PropTypes.func.isRequired
 }
 
 const mapStateToProps = () => ({
@@ -32,7 +36,7 @@ const mapStateToProps = () => ({
 
 let prodContainerWithoutProds = connect(
     mapStateToProps,
-    { }
+    {updateProduct}
 )(ProductsContainer);
 
 export default ProductsHoc(prodContainerWithoutProds);

@@ -1,7 +1,6 @@
 import React, { PropTypes } from 'react'
 import _ from 'lodash'
 import '../../styles/admin-styles.scss';
-import {API_URL} from '../../constants/consts';
 
 class ProductItem extends React.Component {
   constructor(props, context) {
@@ -40,24 +39,11 @@ class ProductItem extends React.Component {
     );
   }
 
-  updateDb () {
-
-  }
-
   updateInputValue(fld, evt) {
     let updateObject = {};
     updateObject[fld] = evt.target.value;
 
-    $.ajax({
-      type: "PUT",
-      url: API_URL + '/listing/' + this.props.product.listing_id,
-      contentType: 'application/json',
-      data: JSON.stringify(updateObject),
-      success: (r) => {
-        console.log(r);
-      }
-    });
-
+    this.props.onUpdateProduct(this.props.product.listing_id, updateObject);
     this.setState(updateObject);
   }
 
@@ -110,15 +96,17 @@ class ProductItem extends React.Component {
 
 }
 
-
 ProductItem.propTypes = {
   product: PropTypes.shape({
     title: PropTypes.string.isRequired,
     price: PropTypes.number.isRequired,
     quantity: PropTypes.number.isRequired,
-    images: PropTypes.array.isRequired
+    images: PropTypes.array.isRequired,
+    name: PropTypes.string.isRequired,
+    listing_id: PropTypes.string.isRequired
   }).isRequired,
-  onAddToCartClicked: PropTypes.func.isRequired
+  onAddToCartClicked: PropTypes.func.isRequired,
+  onUpdateProduct: PropTypes.func.isRequired
 }
 
 export default ProductItem

@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux';
 import ig from './igReducer';
+import gkm from './gkmReducer'
 import cart, * as fromCart from './cart'
 import products, * as fromProducts from './products'
 
@@ -10,6 +11,7 @@ export default combineReducers({
   ig,
   cart,
   products,
+  gkm,
   routing: routerReducer
 });
 

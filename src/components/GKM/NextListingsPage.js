@@ -1,27 +1,25 @@
 import React, {PropTypes} from 'react';
 import '../../styles/gkm-home-page.scss';
-import {API_URL} from '../../constants/consts';
 import EtsyListing from '../Etsy/EtsyListing';
+
+
+//connect this one
 
 class NextListingsPage extends React.Component {
   constructor(props, context) {
     super(props, context);
-    this.state = {next_items_to_tweet: []};
 
   }
 
   componentDidMount() {
-    $.get(API_URL + '/next_items_to_tweet', (next_items_to_tweet) => {
-      this.setState({
-        next_items_to_tweet: next_items_to_tweet
-      });
-    });
+    this.props.getNextItemsToTweet();
   }
 
   render() {
+
     let next_items = [];
-    for (let i = 0; i < this.state.next_items_to_tweet.length; i++) {
-      next_items.push(<EtsyListing etsyFu={true} type="gallery" data={this.state.next_items_to_tweet[i]} />);
+    for (let i = 0; i < this.props.nextTweets.length; i++) {
+      next_items.push(<EtsyListing etsyFu={true} type="gallery" data={this.props.nextTweets[i]} onUpdateProduct={this.props.onUpdateProduct} />);
     }
 
     return (
@@ -37,7 +35,9 @@ class NextListingsPage extends React.Component {
 }
 
 NextListingsPage.propTypes = {
-  data: PropTypes.object.isRequired
+  nextTweets: PropTypes.object.isRequired,
+  onUpdateProduct: PropTypes.func.isRequired,
+  getNextItemsToTweet: PropTypes.func.isRequired
 };
 
 

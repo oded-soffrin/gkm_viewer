@@ -2,6 +2,7 @@ import { combineReducers } from 'redux'
 import { RECEIVE_PRODUCTS, ADD_TO_CART, ETSY_CATEGORY_STEP, GALLERY_ITEM_CLICK} from '../constants/actionTypes'
 import _ from 'lodash';
 
+
 const products = (state, action) => {
   switch (action.type) {
     case ADD_TO_CART:
@@ -121,14 +122,6 @@ const itemSelected = (state = {}, action) => {
   }
 }
 
-export default combineReducers({
-  byId,
-  byCollection,
-  visibleIds,
-  categories,
-  category,
-  itemSelected
-})
 
 export const getProduct = (state, id) => {
   return state.byId[id]
@@ -141,3 +134,14 @@ export const getProductsByCollection = (state, collectionId) => {
 
 export const getVisibleProducts = state =>
   state.visibleIds.map(id => getProduct(state, id))
+
+
+
+export default combineReducers({
+  byId,
+  byCollection,
+  visibleIds,
+  categories,
+  category,
+  itemSelected
+})

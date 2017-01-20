@@ -20,6 +20,7 @@ const CollectionContainerInner = ({collectionId, products, itemSelected, gallery
 CollectionContainerInner.propTypes = {
   collectionId: PropTypes.string.isRequired,
   products: PropTypes.array,
+  categories: PropTypes.array,
   itemSelected: PropTypes.object.isRequired,
   galleryItemClick: PropTypes.func.isRequired
 };

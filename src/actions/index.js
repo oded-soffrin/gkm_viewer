@@ -1,5 +1,7 @@
 import shop from '../api/shop'
 import * as types from '../constants/actionTypes'
+import {notification} from './notificaiton'
+
 
 const receiveProducts = products => ({
   type: types.RECEIVE_PRODUCTS,
@@ -39,6 +41,16 @@ export const checkout = products => (dispatch, getState) => {
   })
 }
 
+export const updateProduct = (productId, productUpdte) => (dispatch) => {
+  dispatch(notification('Updating Product'));
+  console.info('updating product', productId, productUpdte);
+
+  shop.updateProduct(productId, productUpdte)
+      .then(() => {
+        dispatch(notification('Product updated'));
+      });
+};
+
 export function categorySelect(step, stepIdx = 1) {
   return {type: types.ETSY_CATEGORY_STEP, step, stepIdx};
 }
@@ -46,3 +58,4 @@ export function categorySelect(step, stepIdx = 1) {
 export function galleryItemClick(listingId) {
   return {type: types.GALLERY_ITEM_CLICK, listingId};
 }
+

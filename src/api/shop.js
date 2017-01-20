@@ -14,5 +14,22 @@ export default {
         .then(productsJson => cb(productsJson))
 
   },
+
+  updateProduct: (id,  updateObject) => {
+
+    return fetch(`${API_URL}/listing/${id}`,
+        {
+          method: 'PUT',
+          body: JSON.stringify(updateObject),
+          headers: new Headers({
+            'Content-Type': 'application/json',
+            Accept: 'application/json',
+          })
+
+        }
+    );
+  },
+
+  //Dummy function
   buyProducts: (payload, cb, timeout) => setTimeout(() => cb(), timeout || TIMEOUT)
 }
