@@ -2,13 +2,22 @@ import React, { PropTypes } from 'react'
 import _ from 'lodash'
 import '../../styles/admin-styles.scss';
 
+
 class ProductItem extends React.Component {
+
   constructor(props, context) {
     super(props, context);
-    this.state = {
-      debug: false,
-      name: props.product.name
-    }
+    let _state = {debug: false};
+
+    this.editables = {
+      name: {max: 20, display: 'Name'},
+      shortDescription: {max: 100, display: 'Short Description'},
+      twitterTitle: {max: 100, display: 'Twitter Text'}
+    };
+    _.each(this.editables, (v, fld) => {
+      _state[fld] = props.product[fld];
+    });
+    this.state = _state;
   }
 
   productTable () {
@@ -39,9 +48,10 @@ class ProductItem extends React.Component {
     );
   }
 
-  updateInputValue(fld, evt) {
+  updateInputValue(fld, value) {
+    console.log('fld', fld, 'v', value);
     let updateObject = {};
-    updateObject[fld] = evt.target.value;
+    updateObject[fld] = value;
 
     this.props.onUpdateProduct(this.props.product.listing_id, updateObject);
     this.setState(updateObject);
@@ -50,7 +60,15 @@ class ProductItem extends React.Component {
   render () {
     //console.log('p', this.props.product);
 
-    //Still this button to shop
+    //Stil this button to shop
+
+    let debouncedUpdateFunc = _.debounce((fld, value) => this.updateInputValue(fld, value), 250, { 'maxWait': 1000 });
+    let editables = _.map(this.editables, (v, fld) => (
+        <div>
+          <span>{v.display}:</span>
+          <input type="text" defaultValue={this.state[fld]} onChange={(evt) => debouncedUpdateFunc(fld, evt.target.value)} />
+        </div>
+    ));
 
     let product = this.props.product;
     let images = product.images;
@@ -66,20 +84,13 @@ class ProductItem extends React.Component {
             <b>{product.title}</b>
           </div>
           <div>
-            {product.description.slice(0,300) + '...'}
+            {product.description && product.description.slice(0,300) + '...'}
           </div>
           <div>
             ${product.price} x {product.quantity}
           </div>
 
-          <div>
-              <span>Name:</span>
-
-              <input type="text" maxLength="20" defaultValue={this.state.name} onChange={(evt) => this.updateInputValue('name', evt)} />
-
-          </div>
-
-
+          {editables}
 
 
           <button onClick={() => {this.setState({debug: !this.state.debug}) }} >toggle debug</button>
@@ -103,7 +114,8 @@ ProductItem.propTypes = {
     quantity: PropTypes.number.isRequired,
     images: PropTypes.array.isRequired,
     name: PropTypes.string.isRequired,
-    listing_id: PropTypes.string.isRequired
+    listing_id: PropTypes.string.isRequired,
+    twitterTitle: PropTypes.string.isRequired
   }).isRequired,
   onAddToCartClicked: PropTypes.func.isRequired,
   onUpdateProduct: PropTypes.func.isRequired

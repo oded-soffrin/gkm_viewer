@@ -1,5 +1,7 @@
 .product-table {
 
+  overflow: auto;
+
   &.show {
     display: block;
   }
