@@ -1,6 +1,6 @@
 import React, {PropTypes} from 'react';
 import {browserHistory } from 'react-router';
-//import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
+
 
 class ShopListing extends React.Component {
   constructor(props, context) {
@@ -45,7 +45,7 @@ class ShopListing extends React.Component {
     return (
           <div className={"gallery listing " + (this.props.selected ? 'selected' : '')}>
             <div onClick={() => this.props.onSelect(e.listing_id)}>
-                <div className="img" style={{backgroundSize: 'cover', backgroundPosition: 'center center',  backgroundImage: "url('" + image.url_570xN + "')"}} />
+                <div className="cover-img" style={{backgroundImage: "url('" + image.url_570xN + "')"}} />
                 <div className="name">{e.name || e.title}</div>
             </div>
 

@@ -1,0 +1,26 @@
+@import 'consts';
+
+.bullet-list {
+  margin-top: 20px;
+
+  .bullet-item {
+
+    border-bottom: 2px solid black;
+    padding: 20px;
+    a {
+      color: $text-color;
+    }
+
+    i {
+      font-size: 20px;
+      color: $yellow;
+    }
+    .bullet-text {
+      padding-left: 10px;
+    }
+
+    &:last-child {
+      border: none;
+    }
+  }
+}

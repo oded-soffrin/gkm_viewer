@@ -127,6 +127,12 @@ export const getProduct = (state, id) => {
   return state.byId[id]
 }
 
+export const getRelatedProducts = (state) => {
+
+  let r = Math.floor((Math.random()*state.visibleIds.length - 6))
+  return state.visibleIds.slice(r, r + 6).map(id => getProduct(state, id))
+}
+
 export const getProductsByCollection = (state, collectionId) => {
   return state.byCollection[collectionId];
 }

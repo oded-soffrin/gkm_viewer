@@ -4,6 +4,7 @@ import Header from './Header';
 import ProductsHoC from "../containers/ProductsHoC"
 import SectionButton from './SectionButton'
 import Footer from './Footer'
+import BulletList from './BulletList'
 import _ from 'lodash'
 
 
@@ -46,6 +47,26 @@ class HomePage extends React.Component {
       return (<SectionButton type="home" img={this.getRandomImage()} title={s.title} description={s.description} onClick={() => {browserHistory.push("/test");}} />)
     })
 
+    let bulletItems = [
+      {
+        icon: 'info-circle',
+        name: 'Shipping & Payments',
+        link: '/shipping'
+      },
+      {
+        icon: 'users',
+        name: 'About us',
+        link: '/about'
+      },
+      {
+        icon: 'comment',
+        name: 'Let\'s connect',
+        link: '/connect'
+      }
+    ];
+
+
+
     return (
         <div className="home-page">
           <div className="home-page-main">
@@ -66,13 +87,8 @@ class HomePage extends React.Component {
 
             {sectionButtons}
 
-            <div className="bullet-list">
-              <div className="bullet-item">
-                <i className="fa fa-info-circle"/> <span className="bullet-text"> Shipping & Payments </span>
-              </div>
-              <div className="bullet-item"><i className="fa fa-users"/> <span className="bullet-text"><Link to="/about"> About us</Link></span></div>
-              <div className="bullet-item"><i className="fa fa-comment"/> <span className="bullet-text"> Let's connect </span></div>
-            </div>
+            <BulletList items={bulletItems}/>
+
           </div>
 
           <Footer type="big"/>

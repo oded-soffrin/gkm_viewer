@@ -1,6 +1,12 @@
 
 import React, {PropTypes} from 'react';
 import Header from '../Header';
+import '../../styles/product-page.scss'
+import BulletList from '../BulletList'
+import Footer from '../Footer'
+import {browserHistory } from 'react-router';
+import ShopListing from './ShopListing';
+
 import _ from 'lodash'
 
 class ProductPage extends React.Component {
@@ -38,18 +44,23 @@ class ProductPage extends React.Component {
     this.setState({info: !this.state.info});
   }
 
+  camelCaseToRegular (camelCase) {
+    return camelCase.replace(/([A-Z])/g, ' $1').replace(/^./, (str) => (str.toUpperCase()))
+  }
+
   render () {
+
+    console.log('props!' , this.props);
 
     let imageIdxs = [0, 1, 2, 3];
     _.remove(imageIdxs, (e) => {return e == this.state.idx});
 
     let secImages = _.map(imageIdxs, (i) => {
       return (<div className="sec-image">
-        <img src={(this.images[i] || {}) .url_570xN} onClick={() => this.onClick(i)} />
+        <div className="cover-img" onClick={() => this.onClick(i)} style={{height: '100%', backgroundImage: "url('" + (this.images[i] || {}) .url_570xN + "')"}} />
       </div>)
     });
 
-    let imagesPanel = '';
 
     let info = '';
     if (this.state.info) {
@@ -71,18 +82,20 @@ class ProductPage extends React.Component {
             </div>
           </div>
       );
-
     }
 
+    let imagesPanel = '';
     if (this.images[0]) {
       imagesPanel = (<div className="images-panel">
+
         <div className="main-image" onClick={() => this.toggleInfo()}>
-          <div className={"info-button info-" + (this.state.info ? 'enabled' : 'disabled') }>
+          <div className={"info-button info-" + (this.state.info ? 'enabled' : 'disabled') } >
             <i className={"fa fa-" + (this.state.info? 'times' : 'info')} />
           </div>
           {info}
 
-          <img src={this.images[this.state.idx].url_570xN}  />
+          <div className="cover-img" style={{height: '250px', backgroundImage: "url('" + this.images[this.state.idx].url_570xN + "')"}} />
+
         </div>
         <div className="thumbnails">
           {secImages}
@@ -90,20 +103,71 @@ class ProductPage extends React.Component {
       </div>);
     }
 
+    let platingOptions = ['gold', 'silver', 'roseGold'];
+
+    let platings = (
+        <div className="platings">
+          <div className="title">Pick a plating</div>
+          {_.map(platingOptions, (o) => (
+              <div className="option">
+                <div className="option-title">{this.camelCaseToRegular(o)} </div>
+                <div className={"option-display " + o} />
+              </div>
+          ))}
+        </div>
+    );
+
+    let bulletItems = [
+      {
+        icon: 'paper-plane',
+        name: 'Shipping',
+        link: '/shipping'
+      },
+      {
+        icon: 'info-circle',
+        name: 'Plating & Finish Info',
+        link: '/platings_finish'
+      }
+    ];
+
+
+
+    let itemsList = _.map(this.props.relatedProducts, (l, idx) => (
+        <ShopListing
+          idx={idx}
+          key={l.url}
+          data={l}
+          onSelect={() => {browserHistory.push('/shop/' + l.listing_id);}}
+      />
+    ));
+
     return (
-        <div className="product-page">
-          <Header />
-          <div className="top-info">
-            <h1>{this.title}</h1>
-            <h2>{this.description}</h2>
-            <div className="price">{this.price} </div>
-          </div>
+        <div>
+          <div className="product-page">
+            <Header />
+            <div className="top-info">
+              <h1>{this.title}</h1>
+              <h2>{this.description}</h2>
+              <div className="price">{this.price} </div>
+            </div>
 
-          {imagesPanel}
-          <div className="button" onClick={this.props.onAddToCartClicked}>Add to Cart</div>
+            {imagesPanel}
 
+            {platings}
+
+            <BulletList items={bulletItems}/>
+
+            <div className="button" onClick={this.props.onAddToCartClicked}>Add to Shopping Bag</div>
+
+            <div className="other-products">
+              <div className="title">Maybe You'll Fancy These:</div>
+              {itemsList}
+            </div>
 
         </div>
+        <Footer />
+      </div>
+
     );
   }
 }

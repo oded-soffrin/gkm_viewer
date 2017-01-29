@@ -4,9 +4,7 @@
 $vin-blue: #5bb7db;
 $vin-green: #60b044;
 $vin-red: #ff0000;
-$black: #000;
 $cat-font-size: 22px;
-$text-color: #4d4d4d;
 
 @mixin dark-shadow {
   box-shadow: 3px 3px 10px #333;
@@ -153,31 +151,6 @@ a {
       margin: 20px 0;
       text-align: center;
     }
-
-    .bullet-list {
-      margin-top: 20px;
-
-      .bullet-item {
-
-        border-bottom: 2px solid black;
-        padding: 20px;
-         a {
-           color: $text-color;
-         }
-
-        i {
-          font-size: 20px;
-          color: $yellow;
-        }
-        .bullet-text {
-          padding-left: 10px;
-        }
-
-        &:last-child {
-          border: none;
-        }
-      }
-    }
   }
 
   .footer {
@@ -193,6 +166,11 @@ a {
   }
 }
 
+.cover-img {
+  box-sizing: border-box;
+  background-size: cover;
+  background-position: center center;
+}
 
 //from etsy home page
 
@@ -206,9 +184,7 @@ a {
   img {
     width: 100%;
   }
-  .img {
-    box-sizing: border-box;
-
+  .cover-img {
     border: 1px solid $black;
     width: 100%;
     height: 150px;
@@ -454,125 +430,7 @@ a {
   }
 }
 
-.product-page {
 
-
-
-  .top-info {
-    position: relative;
-
-    h1 {
-      line-height: 1;
-      font-size: 22px;
-    }
-
-    h2 {
-      font-size: 14px;
-      font-weight: normal;
-      color: $grey;
-
-    }
-
-    .price {
-      position: absolute;
-      top: 0;
-      right: 0;
-    }
-  }
-  .images-panel {
-    .main-image {
-      width: 100%;
-      position: relative;
-      border: 1px solid black;
-
-      .info-button {
-        z-index: 1;
-        position: absolute;
-        top: 0;
-        right: 0;
-        background: $yellow;
-        border: 1px solid black;
-        border-radius: 0 0 0 60px;
-        width: 50px;
-        height: 50px;
-        text-align: right;
-        line-height: 50px;
-        i {
-          font-size: 30px;
-          padding-right: 13px;
-        }
-
-        &.info-enabled {
-          i {
-            padding-right: 7px;
-          }
-        }
-      }
-
-      .info {
-        padding: 10px;
-        box-sizing: border-box;
-        color: white;
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.7);
-        font-size: 14px;
-
-        .section {
-          margin-bottom: 10px;
-          .section-title {
-            font-weight: bold;
-          }
-
-          ul {
-            padding-top: 0;
-            margin: 0;
-          }
-        }
-      }
-      img {
-        vertical-align: bottom;
-        width: 100%;
-      }
-    }
-
-    .thumbnails {
-      margin-top: 3px;
-      .sec-image {
-        width: 32%;
-        display: inline-block;
-        height: 150px;
-        border: 1px solid black;
-        vertical-align: bottom;
-        margin-right: 3px;
-
-        img {
-          width: 100%;
-        }
-        &:last-child {
-          margin-right: 0;
-        }
-      }
-
-
-
-
-
-    }
-  }
-
-  .button {
-    text-align: center;
-    padding: 10px;
-    margin: 10px;
-    border: 1px solid $black;
-    box-sizing: border-box;
-    background: $yellow;
-  }
-}
 
 .filter-button {
   width: 50%;
