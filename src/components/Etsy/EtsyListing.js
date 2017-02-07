@@ -1,11 +1,8 @@
 import React, {PropTypes} from 'react';
-
+import Input from '../Common/Input'
 class EtsyListing extends React.Component {
   constructor(props, context) {
     super(props, context);
-    this.state = {
-      twitterTitle: this.props.data.twitterTitle
-    };
   }
 
   isGallery() {
@@ -16,17 +13,6 @@ class EtsyListing extends React.Component {
     return (this.props.etsyFu == true);
   }
 
-  updateDb () {
-    let listingId = this.props.data.listing_id;
-    let twitterTitle = this.state.twitterTitle;
-    this.props.onUpdateProduct(listingId, {twitterTitle});
-  }
-
-  updateInputValue(evt) {
-    this.setState({
-      twitterTitle: evt.target.value
-    });
-  }
 
   render() {
     let e = this.props.data;
@@ -46,8 +32,7 @@ class EtsyListing extends React.Component {
     if (this.isEtsyFu()) {
       etsuFu = (<div>
         <div className="description">{e.description.slice(0, 200)}... </div>
-        <h6>update twiiter message:</h6>
-        <input id={'twitterTitleInput' + e.id} type="text" maxLength="90" defaultValue={this.state.twitterTitle} onChange={(evt) => this.updateInputValue(evt)}/>
+        <Input title="update twiiter message" id={this.props.data.listing_id} fld='twitterTitle' value={this.props.data.twitterTitle} onUpdate={this.props.onUpdateProduct} />
         <button onClick={() => {this.updateDb();}}> Update </button>
       </div>);
 

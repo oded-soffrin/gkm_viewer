@@ -2,6 +2,7 @@ import { combineReducers } from 'redux';
 import ig from './igReducer';
 import gkm from './gkmReducer'
 import cart, * as fromCart from './cart'
+import items from './item'
 import products, * as fromProducts from './products'
 
 
@@ -12,6 +13,7 @@ export default combineReducers({
   cart,
   products,
   gkm,
+  items,
   routing: routerReducer
 });
 

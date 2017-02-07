@@ -12,11 +12,13 @@ class ItemDto {
   }
 }
 
-class Item {
-  constructor(db, dto) {
+
+export class Item {
+  constructor(db, config) {
+    config = config || {}
     this.db = db;
-    if (dto) {
-      this._dto = dto;
+    if (config.dto) {
+      this._dto = config.dto;
     }
   }
 
@@ -36,17 +38,6 @@ class Item {
     })
   }
 
-  loadItems () {
-    if (this.type !== 'category') {
-      console.error('loading items from non category item')
-    } else {
-      let itemsDto = this.db.getItemsByHashtag(this.category_name);
-      return _.map(itemsDto, (itemDto) => {
-        return new Item(this.db, itemDto);
-      });
-    }
-  }
-
   get id () { return this._dto.id}
 
   save () {
@@ -56,7 +47,6 @@ class Item {
       return this.id;
     })
   }
-
 
   get state() {
     return this._state;
@@ -84,9 +74,26 @@ class Item {
   }
 
   get text () {return this._dto.text}
-
-
+  get dto () {return this._dto}
 
 }
 
-export default Item
+export class Category extends Item {
+
+  constructor(db, config) {
+
+    super(db, config)
+    this.type = 'category'
+  }
+
+  loadItems () {
+    if (this.type !== 'category') {
+      console.error('loading items from non category item')
+    } else {
+      let itemsDto = this.db.getItemsByHashtag(this.category_name);
+      return _.map(itemsDto, (itemDto) => {
+        return new Item(this.db, {dto: itemDto});
+      });
+    }
+  }
+}

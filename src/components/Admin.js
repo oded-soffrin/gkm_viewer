@@ -6,6 +6,8 @@ const Admin = (props) => {
     <div>
       <IndexLink to="/">Home</IndexLink>
       {' | '}
+      <Link to="/admin/items">Items</Link>
+      {' | '}
       <Link to="/admin/gkm">Twitter</Link>
       {' | '}
       <Link to="/admin/next-listings">Next Listings</Link>

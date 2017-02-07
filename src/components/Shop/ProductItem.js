@@ -1,23 +1,20 @@
 import React, { PropTypes } from 'react'
 import _ from 'lodash'
 import '../../styles/admin-styles.scss';
-
+import Input from '../Common/Input'
 
 class ProductItem extends React.Component {
 
   constructor(props, context) {
     super(props, context);
-    let _state = {debug: false};
+    this.state  = {debug: false};
 
     this.editables = {
       name: {max: 20, display: 'Name'},
       shortDescription: {max: 100, display: 'Short Description'},
       twitterTitle: {max: 100, display: 'Twitter Text'}
     };
-    _.each(this.editables, (v, fld) => {
-      _state[fld] = props.product[fld];
-    });
-    this.state = _state;
+
   }
 
   productTable () {
@@ -48,26 +45,12 @@ class ProductItem extends React.Component {
     );
   }
 
-  updateInputValue(fld, value) {
-    console.log('fld', fld, 'v', value);
-    let updateObject = {};
-    updateObject[fld] = value;
-
-    this.props.onUpdateProduct(this.props.product.listing_id, updateObject);
-    this.setState(updateObject);
-  }
 
   render () {
-    //console.log('p', this.props.product);
+    //Stil the button to shop
 
-    //Stil this button to shop
-
-    let debouncedUpdateFunc = _.debounce((fld, value) => this.updateInputValue(fld, value), 250, { 'maxWait': 1000 });
     let editables = _.map(this.editables, (v, fld) => (
-        <div>
-          <span>{v.display}:</span>
-          <input type="text" defaultValue={this.state[fld]} onChange={(evt) => debouncedUpdateFunc(fld, evt.target.value)} />
-        </div>
+          <Input title={v.display} fld={fld} value={this.props.product[fld]} id={this.props.product.listing_id} onUpdate={this.props.onUpdateProduct} />
     ));
 
     let product = this.props.product;

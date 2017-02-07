@@ -10,7 +10,7 @@ import IgPage from './containers/InstagramPage'; // eslint-disable-line import/n
 import AboutPage from './components/AboutPage.js';
 import NotFoundPage from './components/NotFoundPage.js';
 import ProductsContainer from "./containers/ProductsContainer.js"
-
+import ItemsContainer from "./containers/GKM/ItemsContainer.js"
 
 // <Route path="/" component={Admin}>
 export default (
@@ -21,6 +21,8 @@ export default (
             <Route path="next-listings" component={NextListingsPageContainer}/>
             <Route path="ig" component={IgPage}/>
             <Route path="about" component={AboutPage}/>
+            <Route path="items" component={ItemsContainer}/>
             <Route path="*" component={NotFoundPage}/>
     </Route>
 );
+
