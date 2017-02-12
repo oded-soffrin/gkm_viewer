@@ -1,5 +1,8 @@
 // import { getTotal, getCartProducts } from './index'
 //
+it('should padd', () => {
+  expect(true).toEqual(true);
+})
 // describe('selectors', () => {
 //   describe('getTotal', () => {
 //     it('should return price total', () => {

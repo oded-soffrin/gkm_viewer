@@ -21,7 +21,7 @@ describe('Input Comp', () => {
   });
 
   it('should display value', () => {
-    expect(input.props().defaultValue).to.equal('test');
+    expect(input.props().value).to.equal('test');
   })
 
   it('should callback on chage', () => {

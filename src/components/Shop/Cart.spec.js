@@ -2,7 +2,9 @@
 // import { shallow } from 'enzyme'
 // import Cart from './Cart'
 // import Product from './Product'
-//
+it('should padd', () => {
+  expect(true).toEqual(true);
+})
 // const setup = (total, products = []) => {
 //   const actions = {
 //     onCheckoutClicked: jest.fn()

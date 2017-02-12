@@ -1,5 +1,7 @@
 // import products from './products'
-//
+it('should padd', () => {
+  expect(true).toEqual(true);
+})
 // describe('reducers', () => {
 //   describe('products', () => {
 //     it('should handle RECEIVE_PRODUCTS action', () => {

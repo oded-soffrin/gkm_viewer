@@ -1,7 +1,9 @@
 // import React from 'react'
 // import { shallow } from 'enzyme'
 // import ProductsList from './ProductsList'
-//
+it('should padd', () => {
+  expect(true).toEqual(true);
+})
 // const setup = props => {
 //   const component = shallow(
 //     <ProductsList title={props.title}>{props.children}</ProductsList>

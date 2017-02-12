@@ -1,4 +1,4 @@
-import MockDate from 'mockdate';
+//import MockDate from 'mockdate';
 import { expect } from 'chai';
 //import { createStore } from 'redux';
 
@@ -8,11 +8,6 @@ import { expect } from 'chai';
 
 describe('Store', () => {
   //let dateModified;
-  before(() => {
-    MockDate.set(new Date());
-    //dateModified = dateHelper.getFormattedDateTime();
-  });
-  after(() => MockDate.reset());
 
   it('dummy test', () => {
     //const store = createStore(rootReducer, initialState);

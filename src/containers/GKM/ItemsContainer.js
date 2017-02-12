@@ -1,8 +1,8 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {addItem} from '../../actions/itemActions'
+import {addItem, addCategory, updateItem, deleteItem, resetDb} from '../../actions/itemActions'
 import ItemsPage from '../../components/GKM/ItemsPage.js';
-import {getItems} from '../../reducers/item'
+import {getItems, getCategories} from '../../reducers/item'
 
 export const ItemsContainer = (props) => {
   return (
@@ -19,13 +19,14 @@ ItemsContainer.propTypes = {
 
 function mapStateToProps(state) {
   return {
-    items: getItems(state)
+    items: getItems(state),
+    categories: getCategories(state)
   };
 }
 
 
 export default connect(
     mapStateToProps,
-    {addItem}
+    {addItem, addCategory, updateItem, deleteItem, resetDb}
 )(ItemsContainer);
 

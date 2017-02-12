@@ -1,15 +1,25 @@
 import React from 'react';
 import _ from 'lodash'
+import Item from './Item'
+import Category from './Category'
+import Input from '../Common/Input'
 
-const ItemsPage = ({items, addItem}) => {
-  let itemsJsx = _.map(items, (i) => (<div> {i.text} </div>))
+const ItemsPage = ({items, addItem, categories, addCategory, updateItem, deleteItem, resetDb}) => {
+  let itemsJsx = _.map(items, (i) => (<Item item={i} updateItem={updateItem} deleteItem={deleteItem} />))
+  let categoriesJsx = _.map(categories, (i) => (<Category category={i} />))
   return (
       <div>
-        <div>Items!!</div>
+
+        <button onClick={resetDb}>RESET DB!</button>
+
+        <h1>Categories</h1>
+        {categoriesJsx}
+        <Input title="add new category" button={{text: 'ADD!', action: addCategory}}/>
+        <h1>Items</h1>
         {itemsJsx}
-        <div onClick={() => {addItem('some text')}}>
-          Add Item
-        </div>
+
+        <Input title="add new" button={{text: 'ADD!', action: addItem}}/>
+
       </div>
   )
 };

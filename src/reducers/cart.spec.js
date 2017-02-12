@@ -1,5 +1,7 @@
 // import cart from './cart'
-//
+it('should padd', () => {
+  expect(true).toEqual(true);
+})
 // describe('reducers', () => {
 //   describe('cart', () => {
 //     const initialState = {

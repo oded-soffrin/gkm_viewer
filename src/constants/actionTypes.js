@@ -14,4 +14,10 @@ export const SHOW_NOTIFICATION = 'SHOW_NOTIFICATION';
 export const NEXT_ITEMS_TO_TWEET = 'NEXT_ITEMS_TO_TWEET';
 export const NEXT_VALID_TWEETS = 'NEXT_VALID_TWEETS';
 
+
+export const RECEIVE_ITEMS = 'RECEIVE_ITEMS';
 export const ADD_ITEM = 'ADD_ITEM';
+export const DELETE_ITEM = 'DELETE_ITEM';
+export const UPDATE_ITEM = 'UPDATE_ITEM';
+export const ADD_CATEOGRY = 'ADD_CATEOGRY';
+export const RESET_ITEMS = 'RESET_ITEMS';
