@@ -31,7 +31,7 @@ const ItemRedcuer = (state = initialState, action) => {
     case types.UPDATE_ITEM:
       return {
         items: _.map(state.items, (item) => ((item.id === action.item.id) ? action.item : item)),
-        categories: state.categoreis
+        categories: state.categories
       }
 
     case types.RESET_ITEMS:

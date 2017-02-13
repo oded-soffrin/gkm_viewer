@@ -31,6 +31,7 @@ export default (() => {
     nextIdWilBe: () => (runningidx),
     getNextId: () => (runningidx++),
     insert: (item) => {
+      item.id = runningidx++;
       arrDb.push(item)
       saveDb();
       return Promise.resolve(item);

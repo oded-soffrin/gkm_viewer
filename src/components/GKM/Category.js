@@ -3,7 +3,11 @@ import React from 'react';
 
 const Category = ({category}) => {
   return (
-      <div> {category.type}: {category.text} </div>
+      <div>
+        <div> {category.type}: {category.text} </div>
+        <div>Items that belong to category:</div>
+        {_.map([])}
+      </div>
   )
 };
 

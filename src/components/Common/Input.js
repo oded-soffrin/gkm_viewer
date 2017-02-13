@@ -9,28 +9,35 @@ class Input extends React.Component {
   }
 
   componentWillReceiveProps(props) {
-    console.log('got props!', props)
     this.setState({value: props.value})
   }
 
   updateInputValue(value) {
-    console.log('fld', this.props.fld, 'v', value);
     let updateObject = {};
     updateObject[this.props.fld] = value;
     this.props.onUpdate ? this.props.onUpdate(this.props.id, updateObject) : '';
     this.setState({value});
   }
 
+  onSubmitClick () {
+    let updateObject = {};
+    updateObject[this.props.fld] = this.state.value;
+    this.props.button.action(updateObject)
+    if (this.props.resetOnClick) {
+      this.setState({value: ''})
+    }
+  }
+
   render () {
+    let submitButton = (this.props.button ? (<button onClick={() => {this.onSubmitClick()}}> {this.props.button.text} </button>) : '')
     let waitTime = this.props.button ? 0 : 250
     let debouncedUpdateFunc = _.debounce((value) => this.updateInputValue(value), waitTime, { 'maxWait': 1000 });
 
-    let submit = (this.props.button ? (<button onClick={() => this.props.button.action(this.state.value)}> {this.props.button.text} </button>) : '')
     return (
         <div>
           <span>{this.props.title}:</span>
-          <input type="text" value={this.state.value} onChange={(evt) => debouncedUpdateFunc(evt.target.value)} />
-          {submit}
+          <input type="text" value={this.state.value || ''} onChange={(evt) => debouncedUpdateFunc(evt.target.value)} />
+          {submitButton}
         </div>
         )
   }
@@ -41,7 +48,8 @@ Input.propTypes = {
   value: PropTypes.string,
   fld: PropTypes.string,
   id: PropTypes.string,
-  onUpdate: PropTypes.func
+  onUpdate: PropTypes.func,
+  resetOnClick: PropTypes.func
 }
 
 export default Input

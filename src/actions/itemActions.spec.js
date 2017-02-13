@@ -14,7 +14,7 @@ describe('items actions', () => {
     })
 
     it('should add item', () => {
-        let addAction = actions.addItem('my text')
+        let addAction = actions.addItem({text: 'my text'})
         expect(addAction.type).toEqual(types.ADD_ITEM);
         expect(addAction.item.type).toEqual('item')
         expect(addAction.item.text).toEqual('my text');
@@ -25,7 +25,7 @@ describe('items actions', () => {
     })
 
     it('should add category', () => {
-        let addCategory = actions.addCategory('my category')
+        let addCategory = actions.addCategory({text: 'my category'})
         expect(addCategory.type).toEqual(types.ADD_CATEOGRY)
         expect(addCategory.category.type).toEqual('category')
         expect(addCategory.category.text).toEqual('my category')
@@ -34,12 +34,12 @@ describe('items actions', () => {
     it('should add item to category', () => {
         const dispatch = jest.fn();
         db.reset();
-        let nextId = db.nextIdWilBe()
-        actions.addItemtoCategory(Item.newTextItem(db, 'my text'),  'category')(dispatch)
+        let newItem = Item.newTextItem(db, 'my text')
+        actions.addItemtoCategory(newItem,  'category')(dispatch)
 
 
         expect(dispatch).toBeCalledWith({
-            "item": {"hashtags": ["category"], "id": nextId, "text": "my text", "type": "item"},
+            "item": {"hashtags": ["category"], "id": newItem.id, "text": "my text", "type": "item"},
             "type": "UPDATE_ITEM"
         });
     });

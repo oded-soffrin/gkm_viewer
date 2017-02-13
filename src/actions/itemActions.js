@@ -8,8 +8,8 @@ export const loadItems = () => (dispatch) => {
   })
 }
 
-export function addItem(text) {
-  let item = Item.newTextItem(db, text)
+export function addItem(itemData) {
+  let item = Item.newTextItem(db, itemData.text)
   item.save()
   return {type: types.ADD_ITEM, item: item.dto}
 }
@@ -29,8 +29,8 @@ export const resetDb = () => {
   return {type: types.RESET_ITEMS}
 }
 
-export function addCategory(categoryName) {
-  let category = Category.newCategory(db, categoryName)
+export function addCategory(categoryData) {
+  let category = Category.newCategory(db, categoryData.text)
   category.save()
   return {type: types.ADD_CATEOGRY, category: category.dto}
 }

@@ -14,11 +14,11 @@ const ItemsPage = ({items, addItem, categories, addCategory, updateItem, deleteI
 
         <h1>Categories</h1>
         {categoriesJsx}
-        <Input title="add new category" button={{text: 'ADD!', action: addCategory}}/>
+        <Input title="add new category" fld='text' button={{text: 'ADD!', action: addCategory}} />
+
         <h1>Items</h1>
         {itemsJsx}
-
-        <Input title="add new" button={{text: 'ADD!', action: addItem}}/>
+        <Input title="add new" fld='text' resetOnClick={true} button={{text: 'ADD!', action: addItem}} />
 
       </div>
   )

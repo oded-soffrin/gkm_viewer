@@ -7,14 +7,7 @@ describe('Item:', () => {
 
   /* Todo
 
-  6) item - get ID only when saving, move update() into Item
-  7) figure out <Input /> 3 usages ... (update item need to be simpler)
-
-
-
-  8) add item to category - action & reducer
   9) display items by category
-
 
   - GKM flow
   11) create viewer endpoint (non secure)

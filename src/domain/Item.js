@@ -28,13 +28,11 @@ export class Item {
   new () {
     this._dto = new ItemDto()
     this._state = 'new'
-    this._dto.id = this.db.getNextId();
     this._dto.type = 'item'
     return this;
   }
 
   load (id) {
-
     this._state = 'loading'
     return this.db.get(id).then((item) => {
       if (!item) {
@@ -50,9 +48,10 @@ export class Item {
 
   save () {
     this._state = 'saving';
-    return this.db.insert(this._dto).then(() => {
+    return this.db.insert(this._dto).then((item) => {
       this._state = 'saved'
-      return this.id;
+      this._dto.id = item.id;
+      return item.id;
     })
   }
 
