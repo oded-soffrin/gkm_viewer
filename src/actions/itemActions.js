@@ -1,5 +1,5 @@
 import * as types from '../constants/actionTypes';
-import {Item, Category} from '../domain/Item'
+import {Item, Category, EtsyProductItem} from '../domain/Item'
 import db from '../api/inMemoryDb'
 
 export const loadItems = () => (dispatch) => {
@@ -8,10 +8,11 @@ export const loadItems = () => (dispatch) => {
   })
 }
 
-export function addItem(itemData) {
+export const addItem = (itemData) => (dispatch) => {
   let item = Item.newTextItem(db, itemData.text)
-  item.save()
-  return {type: types.ADD_ITEM, item: item.dto}
+  return item.save().then((item) => {
+    dispatch({type: types.ADD_ITEM, item: item.dto})
+  })
 }
 
 export function updateItem(item) {
@@ -29,16 +30,31 @@ export const resetDb = () => {
   return {type: types.RESET_ITEMS}
 }
 
-export function addCategory(categoryData) {
+export const addCategory = (categoryData) => (dispatch) => {
   let category = Category.newCategory(db, categoryData.text)
-  category.save()
-  return {type: types.ADD_CATEOGRY, category: category.dto}
+  return category.save().then((category) => {
+    dispatch({type: types.ADD_CATEOGRY, category: category.dto })
+  })
 }
-
 
 export const addItemtoCategory = (item, category) => (dispatch)=> {
   item.hashtags.add(category)
   dispatch({type: types.UPDATE_ITEM, item: item.dto})
 }
+
+export const createProductFromEtsyLIsting = (listing) => (dispatch) => {
+  let item = new EtsyProductItem(db).new()
+  item.listings.add(listing)
+  item.save().then((productDto) => {
+    dispatch({type: types.ADD_PRODUCT, product: productDto.dto})
+  })
+}
+
+export const addListingToProduct = (product, listing) =>  {
+  product.listings.add(listing)
+  db.update(product.dto)
+  return {type: types.UPDATE_ITEM, item: product.dto}
+}
+
 
 

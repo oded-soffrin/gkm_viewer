@@ -1,8 +1,9 @@
 import { combineReducers } from 'redux';
 import ig from './igReducer';
 import gkm from './gkmReducer'
+import songApp from '../components/HearAsong/SongReducer'
 import cart, * as fromCart from './cart'
-import items from './item'
+import items, {getItems} from './item'
 import products, * as fromProducts from './products'
 
 
@@ -14,6 +15,7 @@ export default combineReducers({
   products,
   gkm,
   items,
+  songApp,
   routing: routerReducer
 });
 
@@ -22,6 +24,24 @@ export default combineReducers({
 const getAddedIds = state => fromCart.getAddedIds(state.cart)
 const getQuantity = (state, id) => fromCart.getQuantity(state.cart, id)
 const getProduct = (state, id) => fromProducts.getProduct(state.products, id)
+
+export const getProductByFilter = (state, filter) => {
+
+  switch (filter) {
+    case 'hasName':
+      return getVisibleProducts(state.products).filter(p => p.name)
+    case 'notLinkedToProduct':
+
+      let connectedItems = []
+      getItems(state, 'product').map((p) => {
+        let allListings = p.listings.getAll();
+        allListings.map((i) => {connectedItems.push(i)})
+      })
+      return fromProducts.getVisibleProducts(state.products, {exclude: connectedItems})
+    default:
+      return fromProducts.getVisibleProducts(state.products)
+  }
+}
 
 export const getTotal = state =>
     getAddedIds(state)

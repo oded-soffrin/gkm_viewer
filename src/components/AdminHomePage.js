@@ -11,6 +11,7 @@ const AdminHomePage = () => {
         <li><Link to="/admin/items">Items</Link></li>
         <li><Link to="/admin/gkm">Twitter</Link></li>
         <li><Link to="/admin/next-listings">Next Listings</Link></li>
+        <li><Link to="/admin/etsy-product-items">Etsy Product Items</Link></li>
         <li><Link to="/admin/products-container">Products Container</Link></li>
         <li><Link to="/admin/ig">IG</Link></li>
 

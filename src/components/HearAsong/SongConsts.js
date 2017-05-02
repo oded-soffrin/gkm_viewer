@@ -1,0 +1,1 @@
+export const GOT_ALBUMS = 'GOT_ALBUMS'

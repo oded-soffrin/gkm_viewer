@@ -2,13 +2,20 @@
 import _ from 'lodash'
 
 class ItemDto {
-
   constructor (dto) {
     dto = dto || {}
     this.text = dto.text;
     this.hashtags = dto.hashtags || [];
     this.id = dto.id;
     this.type = dto.type
+  }
+}
+
+class ProductItemDto extends ItemDto{
+  constructor (dto) {
+    dto = dto || {}
+    super(dto)
+    this.listings = dto.listings || []
   }
 }
 
@@ -47,16 +54,23 @@ export class Item {
   get id () { return this._dto.id}
 
   save () {
+    if (!this.db) {
+      console.error('no db!')
+    }
     this._state = 'saving';
     return this.db.insert(this._dto).then((item) => {
       this._state = 'saved'
       this._dto.id = item.id;
-      return item.id;
+      return this;
     })
   }
 
   get state() {
     return this._state;
+  }
+
+  set state(val) {
+    this._state = val
   }
 
   get isNew () {
@@ -119,6 +133,10 @@ export class Category extends Item {
     return this;
   }
 
+  setItems (items) {
+    this.items = items
+  }
+
   loadItems () {
     if (this.type !== 'category') {
       console.error('loading items from non category item', this._dto)
@@ -130,9 +148,67 @@ export class Category extends Item {
     }
   }
 
-  static newCategory (db, category) {
+    static newCategory (db, category) {
     let cat = new Category(db).new()
     cat.text = category
     return cat
+  }
+}
+
+export class ProductItem extends Item {
+
+  getProductId (p) {
+    return p.id
+  }
+
+  get listings() {
+    return {
+      add: (product) => {
+        this._state = 'dirty'
+        this._dto.twitterTitle = this._dto.twitterTitle || product.twitterTitle
+        this._dto.name = this._dto.name || product.name
+        this._dto.shortDescription = this._dto.shortDescription || product.shortDescription
+        this._dto.listings.push(this.getProductId(product))
+      },
+      getAll: () => {
+        return this._dto.listings
+      },
+      get: (idx) => {
+        return this._dto.listings[idx]
+      }
+    }
+  }
+
+  get populatedListings () {
+    return (this._listings || [])
+  }
+  populateListings(allListings) {
+    this._listings = _.map(this._dto.listings, (listingId) => {
+      return allListings[listingId]
+    })
+  }
+
+  get twitterTitle () { return this._dto.twitterTitle}
+  set twitterTitle (val) { this._dto.twitterTitle = val}
+  get name () {return this._dto.name}
+  set name (val) {this._dto.name = val}
+  get shortDescription () {return this._dto.shortDescription}
+  set shortDescription (val) {this._dto.shortDescription = val}
+
+  new() {
+    this._dto = new ProductItemDto()
+    this._state = 'new'
+    this._dto.type = 'product'
+    return this;
+  }
+
+}
+
+export class EtsyProductItem extends ProductItem {
+
+
+
+  getProductId(p) {
+    return p.listing_id
   }
 }

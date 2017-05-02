@@ -4,7 +4,7 @@ import { Link, IndexLink } from 'react-router';
 const Admin = (props) => {
   return (
     <div>
-      <IndexLink to="/">Home</IndexLink>
+      <IndexLink to="/admin">Home</IndexLink>
       {' | '}
       <Link to="/admin/items">Items</Link>
       {' | '}
@@ -12,12 +12,14 @@ const Admin = (props) => {
       {' | '}
       <Link to="/admin/next-listings">Next Listings</Link>
       {' | '}
+      <Link to="/admin/etsy-product-items">Etsy Product Items</Link>
+      {' | '}
       <Link to="/admin/products-container">Products Container</Link>
       {' | '}
       <Link to="/admin/ig">IG</Link>
       {' | '}
       <Link to="/about">About</Link>
-      <br/>
+      <br />
       {props.children}
     </div>
   );

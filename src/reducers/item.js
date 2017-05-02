@@ -1,6 +1,6 @@
 import * as types from '../constants/actionTypes'
 import _ from 'lodash'
-import {Item, Category} from '../domain/Item'
+import {Item, Category, EtsyProductItem} from '../domain/Item'
 import inMemoryDB from '../api/inMemoryDb'
 
 let initialState = {
@@ -43,17 +43,47 @@ const ItemRedcuer = (state = initialState, action) => {
         categories: _.filter(state.categories, (item) => (item.id !== action.id))
       }
 
+    case types.ADD_PRODUCT:
+      return {
+        items: [...state.items, action.product],
+        categories: state.categories
+      }
+
     default:
       return state
   }
 }
+const filterItemsByHashtag = (items, hashtag) => {
+  return _.filter(items, (i) => {
+    return ((i.hashtags || []).indexOf(hashtag) >= 0)
+  })
+}
 
-export const getItems = (state) => {
-  return _.map(state.items.items, (itemDto) => (new Item(inMemoryDB, {dto: itemDto})))
+export const getItems = (state, type) => {
+  let items = state.items.items
+  if (type) {
+    items = _.filter(items, (i) => (i.type === type))
+  }
+
+  if (type === 'product') {
+    return _.map(items, (productDto) => {
+      let pitem = new EtsyProductItem(inMemoryDB, {dto: productDto})
+      pitem.populateListings(state.products.byId)
+      return pitem
+    })
+  } else {
+    return _.map(items, (itemDto) => (new Item(inMemoryDB, {dto: itemDto})))
+  }
+  let itemRef = (type == 'product' ? EtsyProductItem : Item)
+
 }
 
 export const getCategories = (state) => {
-  return _.map(state.items.categories, (itemDto) => (new Category(inMemoryDB, {dto: itemDto})))
+  return _.map(state.items.categories, (itemDto) => {
+    let cat = new Category(inMemoryDB, {dto: itemDto})
+    cat.setItems(filterItemsByHashtag(state.items.items, cat.text))
+    return cat
+  })
 }
 
 export default ItemRedcuer

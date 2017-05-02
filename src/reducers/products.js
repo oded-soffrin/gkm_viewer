@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux'
-import { RECEIVE_PRODUCTS, ADD_TO_CART, ETSY_CATEGORY_STEP, GALLERY_ITEM_CLICK} from '../constants/actionTypes'
+import { RECEIVE_PRODUCTS, ADD_TO_CART, ETSY_CATEGORY_STEP, GALLERY_ITEM_CLICK } from '../constants/actionTypes'
 import _ from 'lodash';
 
 
@@ -17,20 +17,20 @@ const products = (state, action) => {
 
 const byCollection = (state = {}, action) => {
   switch (action.type) {
-      case RECEIVE_PRODUCTS:
-        return {
-          ...state,
-          ...action.products.reduce((obj, product) => {
-              if (product.category_path && product.category_path.length > 1 && product.category_path[0] == 'Jewelry') {
-                let cat = product.category_path[1];
-                obj[cat] = obj[cat] || [];
-                obj[cat].push(product)
-              } else {
-                console.warn('ByCollection: skipping', product.title, product.category_path)
-              }
-              return obj;
-          }, {})
-        }
+    case RECEIVE_PRODUCTS:
+      return {
+        ...state,
+        ...action.products.reduce((obj, product) => {
+          if (product.category_path && product.category_path.length > 1 && product.category_path[0] == 'Jewelry') {
+            let cat = product.category_path[1];
+            obj[cat] = obj[cat] || [];
+            obj[cat].push(product)
+          } else {
+            console.warn('ByCollection: skipping', product.title, product.category_path)
+          }
+          return obj;
+        }, {})
+      }
     default: {
       return state
     }
@@ -49,7 +49,7 @@ const byId = (state = {}, action) => {
         }, {})
       }
     default: {
-      const {productId} = action
+      const { productId } = action
       if (productId) {
         return {
           ...state,
@@ -109,7 +109,7 @@ const category = (state = ['Jewelry'], action) => {
 const itemSelected = (state = {}, action) => {
   switch (action.type) {
     case GALLERY_ITEM_CLICK: {
-      let newState = {listingId: action.listingId}
+      let newState = { listingId: action.listingId }
       if (state.listingId == action.listingId) {
         newState.cnt = state.cnt + 1
       } else {
@@ -129,7 +129,7 @@ export const getProduct = (state, id) => {
 
 export const getRelatedProducts = (state) => {
 
-  let r = Math.floor((Math.random()*state.visibleIds.length - 6))
+  let r = Math.floor((Math.random() * state.visibleIds.length - 6))
   return state.visibleIds.slice(r, r + 6).map(id => getProduct(state, id))
 }
 
@@ -138,8 +138,24 @@ export const getProductsByCollection = (state, collectionId) => {
 }
 
 
-export const getVisibleProducts = state =>
-  state.visibleIds.map(id => getProduct(state, id))
+export const getVisibleProducts = (state, config) => {
+  config = config || {}
+  let excludeIds = config.exclude || []
+  let products = []
+  state.visibleIds.map(id => {
+    if (excludeIds.indexOf(id) < 0) {
+      const product = getProduct(state, id);
+      if (!product.image) {
+        console.log("Skipping product since it has no image");
+      } else {
+        products.push(product)
+      }
+    }
+  })
+  return products
+}
+
+
 
 
 

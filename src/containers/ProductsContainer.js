@@ -1,12 +1,13 @@
 import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
 
-import ProductItem from '../components/Shop/ProductItem'
+import ProductItem from '../components/GKM/ProductItem'
 import ProductsList from '../components/Shop/ProductsList'
 import {updateProduct} from '../actions/index'
+import {createProductFromEtsyLIsting} from '../actions/itemActions'
 import ProductsHoc from './ProductsHoC'
 
-const ProductsContainer = ({ products, addToCart, updateProduct }) => (
+const ProductsContainer = ({ products, addToCart, updateProduct, createProductFromEtsyLIsting }) => (
   <ProductsList title="Products">
     {products.map(product =>
       <ProductItem
@@ -14,6 +15,7 @@ const ProductsContainer = ({ products, addToCart, updateProduct }) => (
         product={product}
         onAddToCartClicked={() => addToCart(product.id)}
         onUpdateProduct={updateProduct}
+        createProductFromEtsyLIsting={createProductFromEtsyLIsting}
       />
     )}
   </ProductsList>
@@ -28,7 +30,8 @@ ProductsContainer.propTypes = {
     quantity: PropTypes.number.isRequired
   })).isRequired,
   addToCart: PropTypes.func.isRequired,
-  updateProduct: PropTypes.func.isRequired
+  updateProduct: PropTypes.func.isRequired,
+  createProductFromEtsyLIsting: PropTypes.func
 }
 
 const mapStateToProps = () => ({
@@ -36,7 +39,7 @@ const mapStateToProps = () => ({
 
 let prodContainerWithoutProds = connect(
     mapStateToProps,
-    {updateProduct}
+    {updateProduct, createProductFromEtsyLIsting}
 )(ProductsContainer);
 
 export default ProductsHoc(prodContainerWithoutProds);

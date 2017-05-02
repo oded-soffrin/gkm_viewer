@@ -1,7 +1,7 @@
 
 import * as actions from './itemActions'
 import * as types from '../constants/actionTypes';
-import {Item} from '../domain/Item'
+import {Item, Category} from '../domain/Item'
 import db from '../api/inMemoryDb'
 
 
@@ -13,22 +13,26 @@ describe('items actions', () => {
         expect(dispatch).toBeCalledWith({type: types.RECEIVE_ITEMS, items: []})
     })
 
-    it('should add item', () => {
-        let addAction = actions.addItem({text: 'my text'})
-        expect(addAction.type).toEqual(types.ADD_ITEM);
-        expect(addAction.item.type).toEqual('item')
-        expect(addAction.item.text).toEqual('my text');
+    it('should add item',async () => {
+        const dispatch = jest.fn();
+        let item = Item.newTextItem(db, 'my text')
+        item.dto.id = 1
+        item.state = 'saved';
+        await actions.addItem({text: 'my text'})(dispatch)
+        expect(dispatch).toBeCalledWith({type: types.ADD_ITEM, item: item.dto})
     })
 
     it('should delete item', () => {
         expect(actions.deleteItem(0)).toEqual({type: types.DELETE_ITEM, id: 0})
     })
 
-    it('should add category', () => {
-        let addCategory = actions.addCategory({text: 'my category'})
-        expect(addCategory.type).toEqual(types.ADD_CATEOGRY)
-        expect(addCategory.category.type).toEqual('category')
-        expect(addCategory.category.text).toEqual('my category')
+    it('should add category', async () => {
+        const dispatch = jest.fn();
+        let category = Category.newCategory(db, 'my category')
+        category.dto.id = 2
+        category.state = 'saved';
+        await actions.addCategory({text: 'my category'})(dispatch)
+        expect(dispatch).toBeCalledWith({type: types.ADD_CATEOGRY, category: category.dto})
     });
 
     it('should add item to category', () => {

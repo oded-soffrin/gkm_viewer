@@ -5,41 +5,65 @@ class Input extends React.Component {
   constructor(props, context) {
     super(props, context);
 
-    this.state = {value: props.value}
+    const { value, button, delayTime } = props;
+
+    this.state = { value }
+    let waitTime = button ? 0 : (delayTime || 250);
+    this.debouncedUpdateFunc = _.debounce((value) => { return this.updateInputValue(value) }, waitTime)
   }
+
 
   componentWillReceiveProps(props) {
-    this.setState({value: props.value})
+    this.setState({ value: props.value })
   }
+
 
   updateInputValue(value) {
-    let updateObject = {};
-    updateObject[this.props.fld] = value;
+    const updateObject = this.getUpdateObject(value)
     this.props.onUpdate ? this.props.onUpdate(this.props.id, updateObject) : '';
-    this.setState({value});
   }
 
-  onSubmitClick () {
-    let updateObject = {};
-    updateObject[this.props.fld] = this.state.value;
+
+  onSubmitClick() {
+    const updateObject = this.getUpdateObject(this.state.value)
     this.props.button.action(updateObject)
-    if (this.props.resetOnClick) {
-      this.setState({value: ''})
-    }
+    this.resetStateIfNeeded();
   }
 
-  render () {
-    let submitButton = (this.props.button ? (<button onClick={() => {this.onSubmitClick()}}> {this.props.button.text} </button>) : '')
-    let waitTime = this.props.button ? 0 : 250
-    let debouncedUpdateFunc = _.debounce((value) => this.updateInputValue(value), waitTime, { 'maxWait': 1000 });
+  render() {
+    let submitButton = (this.props.button ? (<button onClick={() => { this.onSubmitClick() }}> {this.props.button.text} </button>) : '')
+    const onChange = (value) => {
+      this.setState({ value });
+      this.debouncedUpdateFunc(value)
+    }
 
     return (
-        <div>
-          <span>{this.props.title}:</span>
-          <input type="text" value={this.state.value || ''} onChange={(evt) => debouncedUpdateFunc(evt.target.value)} />
-          {submitButton}
-        </div>
-        )
+      <div>
+        <span>{this.props.title}:</span>
+        <input type="text" value={this.state.value || ''} onChange={(evt) => { onChange(evt.target.value) }} />
+        {submitButton}
+      </div>
+    )
+  }
+
+  //helpers
+
+  getUpdateObject(val) {
+    const { fld } = this.props;
+    if (!fld) {
+      return val;
+    }
+
+    let updateObject = {};
+    updateObject[fld] = val;
+    return updateObject;
+  }
+
+  resetStateIfNeeded() {
+    if (this.props.resetOnClick) {
+      this.setState({ value: '' })
+    }
+
   }
 }
 

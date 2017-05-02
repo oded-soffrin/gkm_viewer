@@ -1,8 +1,6 @@
-import React, {PropTypes} from 'react';
+import React, { PropTypes } from 'react';
 import Autosuggest from 'react-autosuggest';
 import '../styles/search-bar.scss'; // Yep, that's right. You can import SASS/CSS files too! Webpack will run the associated loader and plug this into the page.
-import { browserHistory } from 'react-router';
-
 
 
 // When suggestion is clicked, Autosuggest needs to populate the input element
@@ -12,11 +10,11 @@ const getSuggestionValue = suggestion => suggestion.id;
 
 // Use your imagination to render suggestions.
 const renderSuggestion = suggestion => (
-    <div>
-      <img style={{float: 'left'}} src={suggestion.images[0].url_75x75} />
-      {suggestion.title}
-      <div style={{clear: 'both'}} />
-    </div>
+  <div>
+    <img style={{ float: 'left' }} src={suggestion.images[0].url_75x75} />
+    {suggestion.title}
+    <div style={{ clear: 'both' }} />
+  </div>
 );
 
 class SearchBar extends React.Component {
@@ -34,28 +32,26 @@ class SearchBar extends React.Component {
     };
   }
 
-  getSuggestions (value) {
+  getSuggestions(value) {
     const inputValue = value.trim().toLowerCase();
     const inputLength = inputValue.length;
 
     return inputLength === 0 ? [] : this.props.products.filter((possibleResult) => {
-        console.log("huh?", possibleResult);
-          return ((possibleResult.title || '').toLowerCase().match(inputValue) != null);
-        }
+      return ((possibleResult.title || '').toLowerCase().match(inputValue) != null);
+    }
     );
   }
 
 
 
-  onChange = (event, { newValue, method}) => {
+  onChange = (event, { newValue, method }) => {
     if (method == 'click') {
-      browserHistory.push('/shop/' + newValue);
+      this.props.onSelect(newValue);
     } else {
       this.setState({
         value: newValue
       });
     }
-
 
   };
 
@@ -86,14 +82,14 @@ class SearchBar extends React.Component {
 
     // Finally, render it!
     return (
-        <Autosuggest
-            suggestions={suggestions}
-            onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
-            onSuggestionsClearRequested={this.onSuggestionsClearRequested}
-            getSuggestionValue={getSuggestionValue}
-            renderSuggestion={renderSuggestion}
-            inputProps={inputProps}
-        />
+      <Autosuggest
+        suggestions={suggestions}
+        onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
+        onSuggestionsClearRequested={this.onSuggestionsClearRequested}
+        getSuggestionValue={getSuggestionValue}
+        renderSuggestion={renderSuggestion}
+        inputProps={inputProps}
+      />
     );
   }
 }

@@ -14,7 +14,7 @@ describe('Input Comp', () => {
 
   beforeEach(() => {
     const component = shallow(
-        <Input fld={'fld'} value={'test'} onChange={callback } />
+        <Input fld={'fld'} value={'test'} onUpdate={callback } />
     )
     input = component.find('input');
 

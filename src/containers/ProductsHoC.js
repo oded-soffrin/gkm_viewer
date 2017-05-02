@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
-import { getVisibleProducts } from '../reducers/products'
+import { getProductByFilter } from '../reducers'
 import { addToCart , categorySelect, galleryItemClick} from '../actions'
 
 function ProductsHoC(WrappedComponent) {
@@ -27,12 +27,14 @@ function ProductsHoC(WrappedComponent) {
     galleryItemClick: PropTypes.func.isRequired
   }
 
-  const mapStateToProps = state => ({
-    products: getVisibleProducts(state.products),
-    categories: state.products.categories,
-    category: state.products.category,
-    itemSelected: state.products.itemSelected
-  })
+  const mapStateToProps = (state, ownProps) => {
+    return{
+      products: getProductByFilter(state, ownProps.filter),
+      categories: state.products.categories,
+      category: state.products.category,
+      itemSelected: state.products.itemSelected
+    }
+  }
 
   return connect(
       mapStateToProps,

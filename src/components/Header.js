@@ -5,6 +5,7 @@ import CartContainer from '../containers/CartContainer'
 import SearchBar from './SearchBar';
 import ProductsHoC from "../containers/ProductsHoC"
 import Radium from 'radium';
+import { browserHistory } from 'react-router';
 
 let RadiumLink = Radium(Link);
 let Menu = require('react-burger-menu').stack;
@@ -17,7 +18,7 @@ class Header extends  React.Component {
     return (
         <div className="header">
           <Menu right>
-            <SearchBar products={this.props.products} />
+            <SearchBar products={this.props.products} onSelect={(value) => browserHistory.push('/shop/' + value) }/>
 
             <RadiumLink className="home menu-item" to="/">Home</RadiumLink>
             <a id="about" className="menu-item" href="/about">About</a>

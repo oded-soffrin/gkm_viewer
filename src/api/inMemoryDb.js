@@ -46,7 +46,6 @@ export default (() => {
 
     },
     update: (updatedItem) => {
-      console.log('updating with', updatedItem);
       arrDb = _.map(arrDb, (item) => {
         return (updatedItem.id === item.id ? updatedItem : item)
       })
