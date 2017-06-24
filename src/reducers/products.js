@@ -145,7 +145,7 @@ export const getVisibleProducts = (state, config) => {
   state.visibleIds.map(id => {
     if (excludeIds.indexOf(id) < 0) {
       const product = getProduct(state, id);
-      if (!product.image) {
+      if (!product.images) {
         console.log("Skipping product since it has no image");
       } else {
         products.push(product)
