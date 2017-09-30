@@ -1,0 +1,26 @@
+@import 'consts';
+
+img {
+  vertical-align: middle;
+}
+
+.celeb {
+  padding: 20px;
+  margin: 20px;
+  border: 1px solid lightblue;
+  text-align: center;
+
+  .data-box {
+    display: inline-block;
+    padding: 10px;
+
+    i.fa-heart {
+      color: red;
+    }
+
+    .fa-comment {
+      color: darkgoldenrod;
+    }
+  }
+}
+
