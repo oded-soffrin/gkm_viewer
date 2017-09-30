@@ -22,3 +22,5 @@ export const UPDATE_ITEM = 'UPDATE_ITEM';
 export const ADD_CATEOGRY = 'ADD_CATEOGRY';
 export const RESET_ITEMS = 'RESET_ITEMS';
 export const ADD_PRODUCT = 'ADD_PRODUCT';
+
+export const IG_GOT_STATS = 'IG_GOT_STATS'

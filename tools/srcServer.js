@@ -29,6 +29,12 @@ browserSync({
         }
         next();
       },
+      function(req, res, next) {
+        if (req.url.startsWith('/instacelebs/')) {
+          req.url = '/instacelebs.html';
+        }
+        next();
+      },
       historyApiFallback(),
 
       webpackDevMiddleware(bundler, {

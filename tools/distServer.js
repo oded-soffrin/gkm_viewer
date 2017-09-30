@@ -27,6 +27,10 @@ browserSync({
     if (req.url.startsWith('/admin/')) {
       req.url = '/admin.html';
     }
+
+    if (req.url.startsWith('/instacelebs/')) {
+      req.url = '/instacelebs.html';
+    }
     next();
   },
     historyApiFallback()

@@ -1,6 +1,6 @@
 import * as types from '../constants/actionTypes'
 import _ from 'lodash'
-import {Item, Category, EtsyProductItem} from '../domain/Item'
+import { Item, Category, EtsyProductItem } from '../domain/Item'
 import inMemoryDB from '../api/inMemoryDb'
 
 let initialState = {
@@ -67,20 +67,19 @@ export const getItems = (state, type) => {
 
   if (type === 'product') {
     return _.map(items, (productDto) => {
-      let pitem = new EtsyProductItem(inMemoryDB, {dto: productDto})
+      let pitem = new EtsyProductItem(inMemoryDB, { dto: productDto })
       pitem.populateListings(state.products.byId)
       return pitem
     })
   } else {
-    return _.map(items, (itemDto) => (new Item(inMemoryDB, {dto: itemDto})))
+    return _.map(items, (itemDto) => (new Item(inMemoryDB, { dto: itemDto })))
   }
-  let itemRef = (type == 'product' ? EtsyProductItem : Item)
 
 }
 
 export const getCategories = (state) => {
   return _.map(state.items.categories, (itemDto) => {
-    let cat = new Category(inMemoryDB, {dto: itemDto})
+    let cat = new Category(inMemoryDB, { dto: itemDto })
     cat.setItems(filterItemsByHashtag(state.items.items, cat.text))
     return cat
   })

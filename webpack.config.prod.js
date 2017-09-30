@@ -22,6 +22,7 @@ export default {
   entry: {
     index: path.resolve(__dirname, 'src/index'),
     admin: path.resolve(__dirname, 'src/admin'),
+    instacelebs: path.resolve(__dirname, 'src/instacelebs'),
   },
   target: 'web', // necessary per https://webpack.github.io/docs/testing.html#compile-and-test
   output: {
@@ -83,6 +84,28 @@ export default {
       inject: true,
       chunks: ['admin'],
       filename: 'admin.html',
+      // Note that you can add custom options here if you need to handle other custom logic in index.html
+      // To track JavaScript errors via TrackJS, sign up for a free trial at TrackJS.com and enter your token below.
+      trackJSToken: ''
+    }),
+
+    new HtmlWebpackPlugin({
+      template: 'src/index.ejs',
+      minify: {
+        removeComments: true,
+        collapseWhitespace: true,
+        removeRedundantAttributes: true,
+        useShortDoctype: true,
+        removeEmptyAttributes: true,
+        removeStyleLinkTypeAttributes: true,
+        keepClosingSlash: true,
+        minifyJS: true,
+        minifyCSS: true,
+        minifyURLs: true
+      },
+      inject: true,
+      chunks: ['instacelebs'],
+      filename: 'instacelebs.html',
       // Note that you can add custom options here if you need to handle other custom logic in index.html
       // To track JavaScript errors via TrackJS, sign up for a free trial at TrackJS.com and enter your token below.
       trackJSToken: ''

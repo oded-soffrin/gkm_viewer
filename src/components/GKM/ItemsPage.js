@@ -4,23 +4,24 @@ import Item from './Item'
 import Category from './Category'
 import Input from '../Common/Input'
 
-const ItemsPage = ({items, addItem, categories, addCategory, updateItem, deleteItem, resetDb}) => {
+//TODO: Categories refactor
+const ItemsPage = ({ items, addItem, categories, addCategory, updateItem, deleteItem, resetDb }) => {
   let itemsJsx = _.map(items, (i) => (<Item item={i} updateItem={updateItem} deleteItem={deleteItem} />))
   let categoriesJsx = _.map(categories, (i) => (<Category category={i} />))
   return (
-      <div>
+    <div>
 
-        <button onClick={resetDb}>RESET DB!</button>
+      <button onClick={resetDb}>RESET DB!</button>
 
-        <h1>Categories</h1>
-        {categoriesJsx}
-        <Input title="add new category" fld='text' button={{text: 'ADD!', action: addCategory}} />
+      <h1>Categories</h1>
+      {categoriesJsx}
+      <Input title="add new category" fld='text' button={{ text: 'ADD!', action: addCategory }} />
 
-        <h1>Items</h1>
-        {itemsJsx}
-        <Input title="add new" fld='text' resetOnClick={true} button={{text: 'ADD!', action: addItem}} />
+      <h1>Items</h1>
+      {itemsJsx}
+      <Input title="add new" fld='text' resetOnClick={true} button={{ text: 'ADD!', action: addItem }} />
 
-      </div>
+    </div>
   )
 };
 

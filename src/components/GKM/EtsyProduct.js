@@ -61,38 +61,39 @@ class EtsyProduct extends React.Component {
     )
   }
 
+  onAddtoCategory(category) {
+    const { product, addItemtoCategory, updateItem } = this.props;
+    addItemtoCategory(product, category)
+    updateItem(product);
+  }
+
+
   render() {
 
+    const { product, listings, addListingToProduct } = this.props;
+    const loader = (<div>loading...</div >)
+    const productItems = product.populatedListings.map((listing) => (listing ? < ProductItem key={listing.id} product={listing} inProduct={true} /> : loader))
+
     return (
-      <div className='gkm-etsy-product' id={this.props.product.id}>
+      <div className='gkm-etsy-product' id={product.id}>
         <h5>Etsy Product</h5>
+
         <div>
-          Product Name: {this.props.product.name}
+          Product Name: {product.name}
+          <div>Categories:</div>
+          {_.map(product.hashtags.all(), (hashtag) => (<div>{hashtag}</div>))}
+          <Input title="add category" fld='category' resetOnClick={true} button={{ text: 'ADD!', action: (update) => { this.onAddtoCategory(update.category) } }} />
           {this.editableFieldsHtml()}
+
         </div>
 
-        {
-          this.props.product.populatedListings.map((listing) => (
-            listing ? < ProductItem key={
-              listing.id
-            }
-              product={
-                listing
-              }
-              inProduct={
-                true
-              }
-
-            /> : <div>loading...</div >))
-        }
+        {productItems}
 
         <div> Add another listing: </div>
-        <SearchBar products={
-          this.props.listings
-        }
+        <SearchBar products={listings}
           onSelect={
             (listingId) => {
-              this.props.addListingToProduct(this.props.product, this.getListingById(listingId))
+              addListingToProduct(product, this.getListingById(listingId))
             }
           } />
       </div>
@@ -105,7 +106,7 @@ class EtsyProduct extends React.Component {
 /*
  Item.propTypes = {
 
- };
+        };
  */
 
 export default EtsyProduct
